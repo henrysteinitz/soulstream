@@ -1,0 +1,46 @@
+.screen {
+	
+}
+
+.screen.full {
+	position: fixed;
+	background: rgb(10,10,10);
+	width: 40%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+	padding: 0px;
+}
+
+.screen.full>img {
+	width: 100%;
+	display: inline-block;
+}
+
+.title {
+	color: white;
+	font-size: 12px;
+}
+.title.circle {
+	display: inline-block;
+	background-color: white;
+	width: 4px;
+	height: 4px;
+	border-radius: 2px;
+	margin-bottom: 2px;
+}
+
+.title-song {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+.title-artist {
+	display: inline-block;
+	margin-right: 5px;
+}
+.title-album {
+	margin-left: 5px;
+	display: inline-block;
+}

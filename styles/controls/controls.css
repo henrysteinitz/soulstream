@@ -1,0 +1,12 @@
+.play-button {
+	display: inline-block;
+	width: 40px;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.skip-button {
+	display: inline-block;
+	width: 24px;
+	margin-bottom: 8px;
+}
