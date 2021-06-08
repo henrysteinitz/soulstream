@@ -3,10 +3,51 @@
 	width: 40px;
 	margin-left: 12px;
 	margin-right: 12px;
+	margin-top: 19px;
+	cursor: pointer;
 }
+
+.play-button:hover {
+
+}
+
 
 .skip-button {
 	display: inline-block;
 	width: 24px;
 	margin-bottom: 8px;
+	cursor: pointer;
+}
+
+.skip-button:hover {
+	
+}
+
+.fullscreen-controls-mid {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+
+.fullscreen-controls-lower {
+	position: absolute;
+	height: 110px;
+	width:100%;
+	bottom: 0px;
+	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0, .4));
+	z-index: 2;
+	opacity: 0;
+	transition: opacity .2s;
+
+}
+
+.content:hover .fullscreen-controls-lower {
+	opacity: 1;
+}
+
+.screen:hover .time {
+	height: 3px;
+	bottom: 34px;
+	width: 84%;
+	left: 8%;
 }

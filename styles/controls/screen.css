@@ -1,27 +1,48 @@
-.screen {
-	
+.content-container {
+	position: relative;
+	overflow-x: hidden;
+	height: 44vw;
+	width: 100%;
 }
 
-.screen.full {
-	position: fixed;
-	background: rgb(10,10,10);
-	width: 40%;
-	height: 100%;
+.carousel {
+	width: 200%;
+	left: -120px;
 	top: 0;
-	left: 0;
+	position: absolute;
+}
+
+.content {
+	display: inline-block;
+	position: relative;
+	display: inline-block;
+	margin-left: 40px;
+	margin-top: 40px;
 	text-align: center;
 	padding: 0px;
+	vertical-align: middle;
 }
 
-.screen.full>img {
+.content.full {
+	width: 380px;
+}
+.content.medium {
+	width: 120px;
+}
+
+.content>img {
+	position: relative;
 	width: 100%;
 	display: inline-block;
+	z-index: 1;
+	padding: 0;
 }
 
 .title {
 	color: white;
 	font-size: 12px;
 }
+
 .title.circle {
 	display: inline-block;
 	background-color: white;
@@ -39,8 +60,10 @@
 .title-artist {
 	display: inline-block;
 	margin-right: 5px;
+	margin-bottom: 8px;
 }
 .title-album {
 	margin-left: 5px;
 	display: inline-block;
+	margin-bottom: 8px;
 }

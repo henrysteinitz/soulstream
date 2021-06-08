@@ -1,43 +1,40 @@
-// import PropTypes from 'prop-types';
 import classnames from 'classnames'
 import { Component } from 'React'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
+import { Carousel } from './carousel.js'
 import { Content } from './content.js'
-import { FastForward } from './fastforward.js'
-import { PlayPause } from './playpause'
-import { Rewind } from './rewind.js'
 import { Time } from './time.js'
-import { SongTitle } from './title.js'
 
-
+const carouselMode = "CAROUSEL"
 
 export class Screen extends Component {
+
+	state = {
+		contentIsPaused: true,
+		mode: carouselMode,
+	}
 	
 	render() {
-		const { size } = this.props;
+		const { state, props } = this
+		const { size, isCurrent, art } = props;
 
 		return (
 			<div className={classnames("screen", size)} >
-				<img src="test_data/album_art/mem.png" width="400" />
-				<SongTitle 
-					title="Only to Live in Your Memories" 
-					artist="Night Moves"
-					album="Pennied Days" />
-
-				<Content/> 
-				<Time />
-				<Rewind />
-				<PlayPause contentIsPaused />
-				<FastForward />
+				{ carouselMode && <Carousel />}
+				{ isCurrent && <Time /> }
+				<audio id="screen-audio" src="test_data/music/sig.m4a" ref="audio" />
 			</div>
 		)
 	}
 }
 
-Screen.propTypes = {
- 	size: PropTypes.oneOf(["full"])
-};
+// Screen.propTypes = {
+//  	size: PropTypes.oneOf(["full"]),
+//  	isCurrent: PropTypes.bool,
+// };
+
+
 
 
 // TODO

@@ -1,11 +1,13 @@
 .time {
-	display: inline-block;
-	background: white;
-	width: 80%;
+	position: absolute;
+	width: 100%;
 	height: 3px;
-	margin-top: 24px;
-	margin-bottom: 20px;
-	text-align: cenf;
+	bottom: 0px;
+	left: 0;
+	text-align: center;
+	transition: height .2s, bottom .2s, width .2s, left .2s;
+	z-index: 3;
+	background: white;
 }
 
 .time-scrubber {
