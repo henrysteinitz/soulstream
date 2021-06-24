@@ -28,8 +28,6 @@ export class Content extends Component {
 		});
 	}
 
-	
-	
 	render() {
 		const { size, isCurrent, art } = this.props;
 
