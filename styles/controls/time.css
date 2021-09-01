@@ -1,17 +1,22 @@
 .time {
-	position: absolute;
 	width: 100%;
-	height: 3px;
+	height: 5px;
 	bottom: 0px;
 	left: 0;
 	text-align: center;
 	transition: height .2s, bottom .2s, width .2s, left .2s;
 	z-index: 3;
-	background: white;
+	background: rgb(230,230,232);
+	margin-left: 10px;
+}
+.time.screen-time {
+	margin-top: 4px;
+	margin-left: 0;
+	margin-bottom: 8px;
 }
 
 .time-scrubber {
-	background: rgb(140, 140, 255);
+	/* background: rgb(140, 140, 255); */
 	width: 50%;
 	height: 100%;
 }

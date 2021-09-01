@@ -1,16 +1,16 @@
 import classnames from 'classnames'
-import { Component } from 'React'
-// import PropTypes from 'prop-types'
+import { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { FastForward } from './fastforward.js'
 import { PlayPause } from './playpause.js'
 import { Rewind } from './rewind.js'
-import { Time } from './time.js'
+import Time from './time.js'
 import { SongTitle } from './title.js'
 
 
 
-export class Content extends Component {
+export default class Content extends Component {
 
 	state = {
 		contentIsPaused: true
@@ -29,28 +29,18 @@ export class Content extends Component {
 	}
 
 	render() {
-		const { size, isCurrent, art } = this.props;
+		const { size, isCurrent, art, toggle, play, pause } = this.props;
 
 		return (
 			<div className={classnames("content", size)} >
 				<img src={art} />
-				<div className="fullscreen-controls-mid">
-					<Rewind />
-					<PlayPause 
-						contentIsPaused={this.state.contentIsPaused}
-						play={this.play}
-						pause={this.pause}/>
-					<FastForward />
-				</div>
 				<div className="fullscreen-controls-lower">
 					<SongTitle 
 						title="Signature" 
 						artist="Photography"
 						album="Freeform 8" />
-					<Content/> 
-				</div>
+				</div>		
 				{ isCurrent && <Time /> }
-				<audio id="screen-audio" src="test_data/music/sig.m4a" ref="audio" />
 			</div>
 		)
 	}

@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Account {
+  id            Int       @default(autoincrement()) @id
+  name          String?
+  email         String?   @unique
+  artists       ArtistAccount[]
+  passwordHash  String?
+  sessionToken  String?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model Artist {
+  id            Int       @default(autoincrement()) @id 
+  name          String 
+  pictureUrl    String? 
+  albums	    AlbumArtist[]  
+  tracks        TrackArtist[]
+  accounts      ArtistAccount[]
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model Track {
+  id            Int       @default(autoincrement()) @id
+  title         String
+  audioUrl      String    @unique
+  artUrl        String
+  url           String
+  artists       TrackArtist[]    
+  albums        AlbumTrack[]	      
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model Album {
+  id            Int       @default(autoincrement()) @id
+  title         String
+  artUrl        String?  
+  tracks        AlbumTrack[] 
+  artists       AlbumArtist[]
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+// Join tables
+model ArtistAccount {
+  account       Account   @relation(fields: [accountId], references: [id])
+  accountId     Int
+  artist        Artist    @relation(fields: [artistId], references: [id])
+  artistId      Int
+  @@id([accountId, artistId])
+}
+
+model TrackArtist {
+  track         Track     @relation(fields: [trackId], references: [id])
+  trackId       Int    
+  artist        Artist    @relation(fields: [artistId], references: [id])
+  artistId      Int
+  @@id([trackId, artistId])
+}
+
+model AlbumArtist {
+  album         Album     @relation(fields: [albumId], references: [id])
+  albumId       Int
+  artist        Artist    @relation(fields: [artistId], references: [id])
+  artistId      Int
+  @@id([albumId, artistId])
+}
+
+model AlbumTrack {
+  album         Album     @relation(fields: [albumId], references: [id])
+  albumId       Int
+  track         Track     @relation(fields: [trackId], references: [id])
+  trackId       Int
+  number        Int
+  @@id([albumId, trackId])
+}
+

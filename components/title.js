@@ -1,4 +1,4 @@
-import { Component } from 'React'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export class SongTitle extends Component {
@@ -16,8 +16,8 @@ export class SongTitle extends Component {
 	}
 }
 
-SongTitle.propTypes = {
-	title: PropTypes.string.isRequired,
-	artist: PropTypes.string.isRequired,
-	album: PropTypes.string.isRequired
-}
+// SongTitle.propTypes = {
+// 	title: PropTypes.string.isRequired,
+// 	artist: PropTypes.string.isRequired,
+// 	album: PropTypes.string.isRequired
+// }

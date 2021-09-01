@@ -1,0 +1,87 @@
+.logo {
+	font-family: "Montserrat";
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 4px;
+	vertical-align: bottom;
+	cursor: pointer;
+	transition: font-size .24s, letter-spacing .24s;
+}
+
+.logo.big {
+	font-size: 40px; 
+	letter-spacing: 16px;
+}
+
+.e {
+
+	width: 24px;
+	position: relative;
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: bottom;
+	margin-bottom: 6px;
+}
+
+.e.big {
+	height: 26px;
+	width: 36px;
+	margin-bottom: 6px;
+	margin-right: 16px;
+}
+
+.align-base {
+	vertical-align: bottom;
+	display: inline-block;
+}
+
+.e-bar {
+	background: rgb(200,200,255);
+	height: 1px;
+	transition: height .24s, margin-bottom .24s, margin-top .24s;
+	animation: wavey ease-in-out 2.4s;
+	animation-iteration-count: infinite;
+	display: block;
+}
+
+.e-bar.big {
+	height: 4px;
+}
+
+.e-bar.top {
+	margin-bottom: 3px;
+	width: 100%;
+	animation-delay: 0s;
+}
+
+.e-bar.top.big{
+	margin-bottom: 6px;
+}
+
+.e-bar.middle {
+	width: 100%;
+	animation-delay: .8s;
+}
+
+.e-bar.bottom {
+	margin-top: 3px;
+	width: 100%;
+	animation-delay: .4s;
+}
+
+.e-bar.bottom.big {
+	margin-top: 6px;
+}
+
+@keyframes wavey {
+	0% {
+		width: 100%;
+	}
+	50% {
+		width: 24%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+

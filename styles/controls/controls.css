@@ -1,13 +1,12 @@
-.play-button {
+.control {
 	display: inline-block;
-	width: 40px;
-	margin-left: 12px;
 	margin-right: 12px;
 	margin-top: 19px;
+	margin-left: 2px;
 	cursor: pointer;
 }
 
-.play-button:hover {
+.control:hover {
 
 }
 
@@ -27,6 +26,7 @@
 	position: absolute;
 	left: 50%;
 	top: 50%;
+	z-index: 2;
 }
 
 .fullscreen-controls-lower {
@@ -50,4 +50,72 @@
 	bottom: 34px;
 	width: 84%;
 	left: 8%;
+}
+
+.track {
+	display: flex;
+	flex-direction: row;
+}
+
+.track-player {
+	display: inline-block;
+	flex-grow: 1;
+}
+
+.track-title {
+	font-family: "Montserrat";
+	font-weight: 500;
+	font-size: 28px;
+	margin-left: 10px;
+	letter-spacing: 2px;
+}
+
+.track-meta-lower {
+	font-family: "Montserrat";
+	font-size: 11px;
+	font-weight: 500;
+	margin-left: 13px;
+	letter-spacing: 1px;
+}
+
+.track-meta-lower>.circle {
+	background-color: black;
+}
+
+.track-reason {
+	margin-left: 10px;
+	font-size: 10px;
+	margin-bottom: 31px;
+	vertical-align: middle;
+}
+
+.artist-link {
+	display: inline-block;
+}
+
+.artist-name {
+	font-weight: 800;
+}
+
+.artist-picture {
+	object-fit: cover;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;	
+	vertical-align: middle;
+	margin-right: 4px;
+}
+
+.control.play-button {
+	filter: invert(100%);
+}
+
+.control.track-button {
+	width: 40px;
+}
+
+.control.screen-button {
+	width: 24px;
+	margin-right: 28px;
+	margin-left: -4px;
 }

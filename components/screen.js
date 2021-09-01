@@ -1,29 +1,28 @@
 import classnames from 'classnames'
-import { Component } from 'React'
+import { Component } from 'react'
 // import PropTypes from 'prop-types'
 
-import { Carousel } from './carousel.js'
-import { Content } from './content.js'
-import { Time } from './time.js'
+import Content from './content.js'
+import Time from './time.js'
 
-const carouselMode = "CAROUSEL"
-
-export class Screen extends Component {
+const MODES = {
+	'default': "DEFAULT",
+	'pocket': "POCKET"
+}
+export default class Screen extends Component {
 
 	state = {
 		contentIsPaused: true,
-		mode: carouselMode,
+		mode: "DEFAULT",
 	}
 	
 	render() {
-		const { state, props } = this
-		const { size, isCurrent, art } = props;
+		const { state, props } = this;
+		const { on, toggle, nowPlaying } = props;
 
 		return (
-			<div className={classnames("screen", size)} >
-				{ carouselMode && <Carousel />}
-				{ isCurrent && <Time /> }
-				<audio id="screen-audio" src="test_data/music/sig.m4a" ref="audio" />
+			<div className={classnames("screen", "fullscreen", {"off": !on})} >
+				<Content size="fullscreen" art={nowPlaying && nowPlaying.album.artUrl} toggle={toggle} /> 
 			</div>
 		)
 	}

@@ -1,0 +1,46 @@
+.upload_art-box {
+	display: flex;
+	width: 370px;
+	height: 370px;
+	background: rgb(230, 230, 230);
+  	overflow: hidden;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.upload_art-image.wide {
+	/* TODO: fix & implement crop */
+	max-height: 100%;
+}
+
+.upload_art-image.tall {
+	/* TODO: fix & implement crop */
+	max-width: 100%;
+}
+
+.upload_textbox {
+	display: block;
+	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-bottom: 3px solid rgb(230,230,232);
+	font-size: 20px;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	outline: none;
+}
+
+.upload_textbox:focus {
+	border-bottom: 3px solid rgb(200,200,255);
+}
+
+.upload_button {
+	margin-top: 8px;
+	width: 90px;
+	height: 30px;
+	background: rgb(230,230,232);
+	border: none;
+	cursor: pointer;
+}
+

@@ -16,18 +16,19 @@
 	display: inline-block;
 	position: relative;
 	display: inline-block;
-	margin-left: 40px;
-	margin-top: 40px;
+	margin-top: 0px;
+	margin-bottom: 40px;
 	text-align: center;
 	padding: 0px;
 	vertical-align: middle;
+	flex-grow: 0;
 }
 
 .content.full {
-	width: 380px;
+	width: 80%;
 }
 .content.medium {
-	width: 120px;
+	width: 180px;
 }
 
 .content>img {
@@ -43,13 +44,16 @@
 	font-size: 12px;
 }
 
-.title.circle {
+.circle {
 	display: inline-block;
-	background-color: white;
 	width: 4px;
 	height: 4px;
 	border-radius: 2px;
 	margin-bottom: 2px;
+}
+
+.title.circle {
+	background-color: white;
 }
 
 .title-song {
@@ -66,4 +70,24 @@
 	margin-left: 5px;
 	display: inline-block;
 	margin-bottom: 8px;
+}
+
+.screen.off {
+	height: 0;
+	filter: grayscale(100%);
+	opacity: 0;
+}
+
+.screen.fullscreen {
+	width: 84%;
+}
+
+.screen {
+	overflow-y: hidden;
+	height: 500px;
+	transition: height .24s, filter .24s, opacity .24s;
+	margin-bottom: 0px;
+	filter: grayscale(0%);
+	opacity: 1
+
 }

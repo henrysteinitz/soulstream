@@ -1,0 +1,117 @@
+/* TODO: Use classnames scoped by component. */
+
+.inline {
+	display: inline-block;
+}
+
+.page-container {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.page-content {
+	text-align: left;
+	width: 100%;
+	max-width: 1300px;
+	height: 100%;
+	display: block;
+	justify-content: left;
+	display: inline-block;	
+	background-color: white;
+}
+
+.page {
+	display: inline-block;
+	min-width: 400px;
+	flex-grow: 1;
+	margin-left: 40px;
+}
+
+.page-content {
+	display: flex;
+	flex-direction: row;
+}
+
+.center {
+	justify-content: center;
+}
+
+.left {
+	width: 50%;
+	max-width: 480px;
+	height: 100vh;
+}
+
+.left.real {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.left.fake {
+	flex-grow: 0;
+	top: 0;
+	flex-direction: column;
+	align-items: center;	
+}
+
+.navigation {
+	flex-grow: 0;
+	width: 100%;
+}
+
+.nav-link {
+	font-size: 14px;
+	margin-right: 18px;
+	display: inline-block;
+	color: rgb(70,70,80);
+	letter-spacing: 1px;
+}
+
+.selected>.nav-link {
+	font-weight: 800;
+	color: black;
+}
+
+.search {
+	width: 100%;
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 4px;
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
+	border-bottom: 5px solid rgb(230,230,232);
+	outline: none;
+	padding-bottom: 7px;
+	font-size: 20px;
+	letter-spacing: 2px;
+	transition: border-bottom .24s;
+}
+
+.search.pocket {
+	border-bottom: 3px solid rgb(230,230,232);
+}
+
+.background-video {
+	position: fixed;
+	top: -200px;
+	left: 0;
+	z-index: -1;
+}
+
+.background-video-shade {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	background-color: white;
+	opacity: .92;
+	width: 100vw;
+	height: calc(100vh + 200px);
+}
+
+

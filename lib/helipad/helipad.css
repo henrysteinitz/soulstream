@@ -1,0 +1,45 @@
+.helipad.hovering {
+	background: yellow;
+}
+
+.helicopter {
+	position: fixed;
+	visibility: hidden;
+	opacity: 0%;
+	width: 450px;
+	/* TODO Fix centering */
+	left: calc(50vw - 300px);
+	top: calc(50vh - 600px);
+	background: white;
+	z-index: 10;
+	transition: opacity visibility top;
+	transition-duration:  180ms;
+	box-shadow: 1px 1px 3px 3px rgb(240,240,240);
+	padding: 40px;
+}
+
+.helicopter.in {
+	visibility: visible;
+	opacity: 100%;
+	top: calc(50vh - 250px);
+}
+
+.helicopter-shade {
+	position: fixed;
+	z-index: 9;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	opacity: 0%;
+	background: white;
+	transition: opacity visibility;
+	transition-duration:  220ms;
+}
+
+.helicopter-shade.in {
+	visibility: visible;
+	opacity: 70%;
+}
+

@@ -1,4 +1,4 @@
-import { Component } from 'React'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export class PlayPause extends Component {
@@ -22,6 +22,6 @@ export class PlayPause extends Component {
 	}
 }
 
-PlayPause.propTypes = {
-	contentIsPaused: PropTypes.bool.isRequired 
-}
+// PlayPause.propTypes = {
+// 	contentIsPaused: PropTypes.bool.isRequired 
+// }
