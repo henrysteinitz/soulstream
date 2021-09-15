@@ -40,7 +40,6 @@ export default class Content extends Component {
 						artist="Photography"
 						album="Freeform 8" />
 				</div>		
-				{ isCurrent && <Time /> }
 			</div>
 		)
 	}

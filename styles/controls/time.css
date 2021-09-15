@@ -1,6 +1,22 @@
+.time-container {
+	position: relative;
+	width: 100%;
+	height: 22px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	transition: height .2s, bottom .2s, width .2s, left .2s, margin-top .2s;
+	overflow-x: hidden;
+}
+
+.time-container:hover {
+	cursor: pointer;
+	height: 36px;
+	margin-top: -7px;
+}
+
 .time {
 	width: 100%;
-	height: 5px;
+	height: 100%;
 	bottom: 0px;
 	left: 0;
 	text-align: center;
@@ -8,20 +24,26 @@
 	z-index: 3;
 	background: rgb(230,230,232);
 	margin-left: 10px;
+	overflow: hidden;
 }
+
 .time.screen-time {
 	margin-top: 4px;
 	margin-left: 0;
 	margin-bottom: 8px;
 }
 
-.time-scrubber {
-	/* background: rgb(140, 140, 255); */
-	width: 50%;
+.time-scrubber-container {
 	height: 100%;
+	width: 100%;
 }
 
-.time-container {
-	width: 100%;
-	text-align: center;
+.time-scrubber {
+	background: rgb(140, 140, 255); 
+	width: 10000px;
+	height: 100%;
+	transition: width .00s;
+	margin-left: -10000px;
 }
+
+

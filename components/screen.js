@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import { Component } from 'react'
+import Atlas, { Route } from '../lib/atlas/atlas.js'
 // import PropTypes from 'prop-types'
 
 import Content from './content.js'
@@ -17,12 +18,16 @@ export default class Screen extends Component {
 	}
 	
 	render() {
-		const { state, props } = this;
-		const { on, toggle, nowPlaying } = props;
+		const { on, toggle, nowPlaying, artist } = this.props;
 
 		return (
 			<div className={classnames("screen", "fullscreen", {"off": !on})} >
-				<Content size="fullscreen" art={nowPlaying && nowPlaying.album.artUrl} toggle={toggle} /> 
+				<Route path="/">
+					<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} />
+				</Route> 
+				<Route path="/[artist]">
+					<Content size="fullscreen" art={artist && artist.pictureUrl} />
+				</Route>
 			</div>
 		)
 	}

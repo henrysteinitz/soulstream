@@ -1,24 +1,38 @@
-import Head from 'next/head'
-import { Component } from 'react'
-import Carousel from '../components/carousel.js'
-import Stereo from '../components/stereo.js'
-import styles from '../styles/Home.module.css'
-import classnames from 'classnames'
-import { Router } from 'react-router-dom'
-import { createMemoryHistory } from 'history'
+import React from "react"
+import { GetStaticProps } from "next"
+import { useRouter } from 'next/router'
+import { PrismaClient } from '@prisma/client';
+import Atlas from '../lib/atlas/atlas.js'
+import Main from './main.js'
 
-const history = createMemoryHistory()
-
-export default class Home extends Component {
-
-
-   render() {
-      return (
-        <div className={classnames(styles.container, 'page-container')}>
-    		<Router history={history}>
-    			<Stereo />
-        	</Router>
-        </div>
-      )
-    }
+function Home(props){
+	const router = useRouter()
+	Atlas.setPath(router.pathname)
+	return <Main {...props} pathname={router.pathname}/>
 }
+
+export async function getStaticProps(context){
+	let prisma = new PrismaClient();
+	const stream = await prisma.track.findMany({
+		select: {
+			id: true,
+	    	title: true,
+	    	audioUrl: true,
+	    	artUrl: true,
+	    	url: true,
+	    	artists: {
+	    		include: {
+	    			artist: {
+	    				select: {
+	    					name: true
+	    				}
+	    			}
+	    		}
+	    	}
+		}
+	})
+
+	return { props: { stream } }
+}
+
+export default Home

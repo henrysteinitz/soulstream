@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/atlas/atlas.js'
 
 export default class ArtistLink extends Component {
 
@@ -9,9 +9,9 @@ export default class ArtistLink extends Component {
 		return (
 			<div className="artist-link">
 				<img src={pictureUrl} className="artist-picture" />
-				<Link to={'artist/${id}'} className="artist-name">
+				<Link to={'artist'} className="artist-name">
 					{name}
-				</Link>
+				</Link> 
 			</div>
 		)
 	}

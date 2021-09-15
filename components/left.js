@@ -6,29 +6,40 @@ import Screen from './screen.js'
 import SignIn from './signin.js'
 
 export default class Left extends Component {
-	
-	state = {
-		screenOn: false
-	}
-
-	turnScreenOn = () => this.setState({ screenOn: true })
-	turnScreenOff = () => this.setState({ screenOn: false })
-	toggleScreen = () => this.setState({ screenOn: !this.state.screenOn })
 
 	render() {
-		const { screenOn, toggle } = this.state
-		const { nowPlaying, play, pause, isPlaying, signedIn, setSession } = this.props
+		const { 
+			nowPlaying, 
+			play, 
+			pause, 
+			isPlaying, 
+			signedIn, 
+			startSession, 
+			currentTrackTime, 
+			totalTrackTime, 
+			skipTo, 
+			screenOn,
+			toggleScreen, 
+			artist } = this.props
 		return  (
 			<div className="left real">
-				<Screen on={screenOn} ref="screen" toggle={toggle} play={play} pause={pause} nowPlaying={nowPlaying} />
+				<Screen on={screenOn} 
+					ref="screen" 
+					play={play} 
+					pause={pause} 
+					nowPlaying={nowPlaying} 
+					artist={artist} />
 				<Navigation pocketMode={screenOn} 
-					toggleScreen={this.toggleScreen} 
+					toggleScreen={toggleScreen} 
 					play={play} 
 					pause={pause} 
 					isPlaying={isPlaying} 
 					nowPlaying={nowPlaying}
 					signedIn={signedIn}
-					setSession={setSession} />
+					startSession={startSession}
+					currentTrackTime={currentTrackTime}
+					totalTrackTime={totalTrackTime} 
+					skipTo={skipTo} />
 			</div>
 		)
 	}

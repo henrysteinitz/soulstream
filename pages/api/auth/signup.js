@@ -4,7 +4,6 @@ import prisma from '../../../lib/prisma.js';
 export default async (req, res) => { 
   const { email, passwordHash } = req.body;
   const sessionToken = crypto.randomBytes(64).toString('hex');
-
   const account = await prisma.account.create({
   	data: { 
   		email: req.body.email, 
@@ -12,5 +11,5 @@ export default async (req, res) => {
   		sessionToken
   	}
   });
-  res.json(account);
+  res.send(account);
 }

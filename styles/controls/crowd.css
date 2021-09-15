@@ -1,0 +1,61 @@
+.crowd {
+	position: relative;
+	max-height: 0;
+	opacity: 0;
+	transition: max-height .8s, opacity .7s;
+}
+
+.crowd.show {
+	max-height: 200px;
+	opacity: 1;
+	display: block;
+	overflow: scroll;
+	border-bottom: 1px solid rgb(230,230,232);
+	overflow: hidden;
+}
+
+.crowd-inner {
+	display: flex;
+}
+
+.crowd-left {
+	width: 180px;
+	flex-grow: 0;
+}
+
+.crowd-right {
+	flex-grow: 1;
+	margin-left: 10px;
+	font-size: 12px;
+}
+
+.crowd-chat {
+	max-height: 178px;
+	overflow-y: scroll;
+}
+
+.crowd-input {
+	display: block;
+	width: 277px;
+	height: 30px;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 2px solid rgb(230,230,232);
+	font-size: 12px;
+	outline: none;	
+}	
+
+.crowd-input.posting {
+	color: rgb(230,230,232);
+
+}
+
+.crowd-input:focus {
+	border-bottom: 2px solid rgb(220,220,255);
+}
+
+.track-comment {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}

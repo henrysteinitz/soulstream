@@ -15,6 +15,8 @@ model Account {
   name          String?
   email         String?   @unique
   artists       ArtistAccount[]
+  comments      TrackComment[]
+  following     ArtistFollow[]
   passwordHash  String?
   sessionToken  String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
@@ -23,11 +25,13 @@ model Account {
 
 model Artist {
   id            Int       @default(autoincrement()) @id 
-  name          String 
-  pictureUrl    String? 
-  albums	    AlbumArtist[]  
+  name          String
+  url           String?   @unique
+  pictureUrl    String?
+  albums	      AlbumArtist[]  
   tracks        TrackArtist[]
   accounts      ArtistAccount[]
+  followedBy    ArtistFollow[]
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -37,9 +41,10 @@ model Track {
   title         String
   audioUrl      String    @unique
   artUrl        String
-  url           String
+  url           String  
   artists       TrackArtist[]    
-  albums        AlbumTrack[]	      
+  albums        AlbumTrack[]	 
+  comments      TrackComment[]     
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -88,3 +93,23 @@ model AlbumTrack {
   @@id([albumId, trackId])
 }
 
+model TrackComment {
+  id            Int       @default(autoincrement()) @id
+  message       String
+  track         Track     @relation(fields: [trackId], references: [id])
+  trackId       Int       
+  account       Account   @relation(fields: [accountId], references: [id])
+  accountId     Int  
+  duration      Float    
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model ArtistFollow {
+  account       Account    @relation(fields: [accountId], references: [id])
+  accountId     Int
+  artist        Artist     @relation(fields: [artistId], references: [id])
+  artistId      Int 
+  createdAt     DateTime   @default(now()) @map(name: "created_at")
+  @@id([accountId, artistId]) 
+}

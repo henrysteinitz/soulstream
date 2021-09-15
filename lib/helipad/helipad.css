@@ -1,4 +1,5 @@
 .helipad.hovering {
+	/* TODO: style; */
 	background: yellow;
 }
 
@@ -7,7 +8,7 @@
 	visibility: hidden;
 	opacity: 0%;
 	width: 450px;
-	/* TODO Fix centering */
+	/* TODO: Fix centering */
 	left: calc(50vw - 300px);
 	top: calc(50vh - 600px);
 	background: white;
