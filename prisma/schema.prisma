@@ -73,7 +73,7 @@ model TrackArtist {
   trackId       Int    
   artist        Artist    @relation(fields: [artistId], references: [id])
   artistId      Int
-  @@id([trackId, artistId])
+  @@id([trackId])
 }
 
 model AlbumArtist {

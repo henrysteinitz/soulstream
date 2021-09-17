@@ -7,7 +7,6 @@ import Main from './main.js'
 
 function Home(props){
 	const router = useRouter()
-	Atlas.setPath(router.pathname)
 	return <Main {...props} pathname={router.pathname}/>
 }
 

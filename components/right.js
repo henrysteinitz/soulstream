@@ -23,7 +23,8 @@ const Right = (props) => {
 					totalTime={totalTrackTime}
 					skipTo={skipTo}
 					account={account}
-					artist={track.artists[0]} />
+					artist={track.artists[0]}
+					id={track.id} />
 				))}
 			</Route>
 			<Route path="/library">

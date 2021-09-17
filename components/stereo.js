@@ -144,8 +144,7 @@ export default class Stereo extends Component {
 		    			/>
 		    		{ 
 		    			signedIn && 
-		    			<Right ref="right" 
-		    				toggle={this.toggle} 
+		    			<Right toggle={this.toggle} 
 		    				play={this.play} 
 		    				pause={this.pause} 
 		    				playingId={song && song.id} 

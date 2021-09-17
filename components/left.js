@@ -1,5 +1,6 @@
 import { Component } from 'react'
 
+import { AtlasConsumer } from '../lib/atlas/atlas.js'
 import Logo from './logo.js'
 import Navigation from './navigation.js'
 import Screen from './screen.js'
@@ -22,25 +23,29 @@ export default class Left extends Component {
 			toggleScreen, 
 			artist } = this.props
 		return  (
-			<div className="left real">
-				<Screen on={screenOn} 
-					ref="screen" 
-					play={play} 
-					pause={pause} 
-					nowPlaying={nowPlaying} 
-					artist={artist} />
-				<Navigation pocketMode={screenOn} 
-					toggleScreen={toggleScreen} 
-					play={play} 
-					pause={pause} 
-					isPlaying={isPlaying} 
-					nowPlaying={nowPlaying}
-					signedIn={signedIn}
-					startSession={startSession}
-					currentTrackTime={currentTrackTime}
-					totalTrackTime={totalTrackTime} 
-					skipTo={skipTo} />
-			</div>
+		<AtlasConsumer>
+			{ 
+				(atlas) => (
+				<div className="left real">
+					<Screen on={screenOn || atlas.path === '/[artist]'} 
+						play={play} 
+						pause={pause} 
+						nowPlaying={nowPlaying} 
+						artist={artist} />
+					<Navigation pocketMode={screenOn} 
+						toggleScreen={toggleScreen} 
+						play={play} 
+						pause={pause} 
+						isPlaying={isPlaying} 
+						nowPlaying={nowPlaying}
+						signedIn={signedIn}
+						startSession={startSession}
+						currentTrackTime={currentTrackTime}
+						totalTrackTime={totalTrackTime} 
+						skipTo={skipTo} />
+				</div>)
+			}
+			</AtlasConsumer>
 		)
 	}
 }

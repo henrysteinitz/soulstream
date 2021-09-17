@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Link } from '../lib/atlas/atlas.js'
+import Atlas, { Link } from '../lib/atlas/atlas.js'
 import classnames from 'classnames'
 
 import Controls from './controls.js'
@@ -39,7 +39,8 @@ export default class Navigation extends Component {
 		    		totalTrackTime={totalTrackTime}
 		    		skipTo={skipTo}
 				/>
-				{signedIn && <Link exact activeClassName="selected" to="/"><div className="nav-link">Stream</div></Link>}
+				{signedIn && <Link className={classnames("selected", { active: Atlas.path === '/' })} to="/">
+				<div className="nav-link">Stream</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/library"><div className="nav-link">Library</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/history"><div className="nav-link">History</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/type"><div className="nav-link">Type</div></Link>}
