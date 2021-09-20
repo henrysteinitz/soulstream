@@ -1,4 +1,4 @@
-import { Component } from 'React'
+import { Component } from 'react'
 import { BrowserRouter as Router, Link, Route } from 'react-router'
 
 export class Tabs extends Component {

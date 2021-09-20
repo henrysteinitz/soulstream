@@ -24,7 +24,6 @@ export default class Crowd extends Component {
 			})
 		}).then((res) => {
 			res.json().then(body => {
-				console.log(body)
 				this.setState({ comments: body })
 			})
 		})
@@ -99,7 +98,7 @@ export default class Crowd extends Component {
 						</div>
 						<div className="crowd-chat">
 							{comments.filter(x => !this.state[x.accountId]).map(comment => (
-								<div>
+								<div key={comment.id}>
 									<div>
 									</div>
 									<div className="track-comment">

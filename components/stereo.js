@@ -107,7 +107,7 @@ export default class Stereo extends Component {
 	render() {
 		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn } = this.state
 		const { signedIn, startSession, stream, account, artist } = this.props
-		console.log(this.context)
+		console.log(this.context.path)
 
 		return (
 			<div className="page-outer-container" onKeyDown={this.handleSpacebar}>

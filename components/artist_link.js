@@ -9,10 +9,12 @@ export default class ArtistLink extends Component {
 		return (
 			<div className="artist-link">
 				<img src={pictureUrl} className="artist-picture" />
-				<Link to={'artist'} className="artist-name">
+				<Link to={'jamesblake'} className="artist-name">
 					{name}
 				</Link> 
 			</div>
 		)
 	}
 }
+
+
