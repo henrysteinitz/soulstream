@@ -29,11 +29,11 @@ export default class Content extends Component {
 	}
 
 	render() {
-		const { size, isCurrent, art, toggle, play, pause } = this.props;
+		const { size, isCurrent, art, toggle, play, pause, isNewArtist } = this.props;
 
 		return (
 			<div className={classnames("content", size)} >
-				<img src={art} />
+				{ isNewArtist ? <div  className="new-profile-pic-box" /> : <img src={art} /> }
 				<div className="fullscreen-controls-lower">
 					<SongTitle 
 						title="Signature" 

@@ -27,11 +27,12 @@ export default class Left extends Component {
 			{ 
 				(atlas) => (
 				<div className="left real">
-					<Screen on={screenOn || atlas.path === '/[artist]'} 
+					<Screen on={screenOn || atlas.isArtist()} 
 						play={play} 
 						pause={pause} 
 						nowPlaying={nowPlaying} 
-						artist={artist} />
+						artist={artist}
+						atlas={atlas} />
 					<Navigation pocketMode={screenOn} 
 						toggleScreen={toggleScreen} 
 						play={play} 
@@ -45,7 +46,7 @@ export default class Left extends Component {
 						skipTo={skipTo} />
 				</div>)
 			}
-			</AtlasConsumer>
+		</AtlasConsumer>
 		)
 	}
 }

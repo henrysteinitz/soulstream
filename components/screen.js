@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { Component } from 'react'
-import Atlas, { Route } from '../lib/atlas/atlas.js'
+import { Route, AtlasProvider } from '../lib/atlas/atlas.js'
 // import PropTypes from 'prop-types'
 
 import Content from './content.js'
@@ -10,6 +10,7 @@ const MODES = {
 	'default': "DEFAULT",
 	'pocket': "POCKET"
 }
+
 export default class Screen extends Component {
 
 	state = {
@@ -18,7 +19,10 @@ export default class Screen extends Component {
 	}
 	
 	render() {
-		const { on, toggle, nowPlaying, artist } = this.props;
+		const { on, toggle, nowPlaying, artist, atlas } = this.props;
+
+		const isNewArtist = atlas.getLastUrlSegment() === 'new'
+		console.log(isNewArtist)
 
 		return (
 			<div className={classnames("screen", "fullscreen", {"off": !on})} >
@@ -26,12 +30,13 @@ export default class Screen extends Component {
 					<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} />
 				</Route> 
 				<Route path="/[artist]">
-					<Content size="fullscreen" art={artist && artist.pictureUrl} />
+					<Content size="fullscreen" art={isNewArtist ? "test_data/profile.jpg" : (artist && artist.pictureUrl)} />
 				</Route>
 			</div>
 		)
 	}
 }
+
 
 // Screen.propTypes = {
 //  	size: PropTypes.oneOf(["full"]),

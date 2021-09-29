@@ -27,6 +27,7 @@
 .content.full {
 	width: 80%;
 }
+
 .content.medium {
 	width: 180px;
 }
@@ -37,6 +38,15 @@
 	display: inline-block;
 	z-index: 1;
 	padding: 0;
+}
+
+.new-pic-box {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	z-index: 1;
+	background-color: rgb(190,190,190);
 }
 
 .title {
@@ -61,11 +71,13 @@
 	font-weight: bold;
 	font-size: 14px;
 }
+
 .title-artist {
 	display: inline-block;
 	margin-right: 5px;
 	margin-bottom: 8px;
 }
+
 .title-album {
 	margin-left: 5px;
 	display: inline-block;

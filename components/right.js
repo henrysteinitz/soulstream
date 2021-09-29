@@ -3,6 +3,7 @@ import { Route, Atlas } from '../lib/atlas/atlas.js'
 
 import { retrograde, signature } from '../test/test.js'
 import ArtistPage from './artistpage.js'
+import Start from './start.js'
 import Track from './track.js'
 import Type from '../lib/type/type'
 
@@ -12,6 +13,7 @@ const Right = (props) => {
 	return (
 		<div className="page">
 			<Route path="/">
+				<Start />
 				{stream && stream.map((track) => (
 				<Track 
 					song={track} 

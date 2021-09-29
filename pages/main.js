@@ -4,12 +4,17 @@ import styles from '../styles/Home.module.css'
 import classnames from 'classnames'
 import Atlas, { AtlasProvider } from '../lib/atlas/atlas.js'
 
+const initialState = {
+	sessionToken: null,
+	accountId: null
+}
+const fakeSignedIn = {
+	sessionToken: 1,
+	accountId: 1
+}
 export default class Main extends Component {
 
-	state = {
-		sessionToken: null,
-		accountId: null,
-	}
+	state = fakeSignedIn
 
 	constructor(props) {
 		super(props)

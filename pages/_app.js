@@ -6,6 +6,7 @@ import '../styles/controls/controls.css'
 import '../styles/controls/crowd.css'
 import '../styles/controls/logo.css'
 import '../styles/controls/screen.css'
+import '../styles/controls/start.css'
 import '../styles/controls/time.css'
 import '../styles/controls/upload.css'
 

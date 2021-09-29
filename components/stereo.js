@@ -19,7 +19,7 @@ export default class Stereo extends Component {
 		totalTrackTime: null,
 		scrubbingTrack: false,
 		scrubbingPlayer: false,
-		screenOn: false
+		screenOn: false,
 		// TODO: move to a global store.
 	}
 

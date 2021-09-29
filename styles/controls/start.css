@@ -1,0 +1,156 @@
+.start-square {
+	position: relative;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 0px;
+	width: 0;
+	height: 70px;
+	overflow: hidden;
+	border-bottom: 0px solid rgb(180,180,255);
+	margin-bottom: 8px;
+	transition: border-bottom .2s, height .2s, margin-bottom .2s, width .2s, margin-right .2s;
+}
+
+.start-square:hover {
+	height: 98px;
+	border-bottom: 8px solid rgb(180,180,255);
+	margin-bottom: 0px;
+}
+
+.start-square.open {
+	width: 200px;
+	margin-right: 20px;
+}
+
+.start-square.expanded {
+	height: 200px;
+}
+
+.start-square-shade {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: black;
+	opacity: 40%;
+	transition: opacity .4s;
+}
+
+.start-square-shade:hover {
+	opacity: 20%;
+	cursor: pointer;
+}
+
+.start-square-shade.blue {
+	background: rgb(0, 0,200)
+}
+
+.section-header {
+	margin-top: 10px;
+	font-size: 32px;
+	font-family: "Montserrat";
+	font-weight: 600;
+	margin-bottom: 10px;
+	letter-spacing: 2px;
+}
+
+.start-image {
+	width: 100%;
+	position: absolute;
+	top: 0;
+}
+
+.start-square-text {
+	position: absolute;
+	top: 40%;
+	color: white;
+	font-size: 19px;
+	font-family: "Montserrat";
+	font-weight: 800;
+	letter-spacing: 2px;
+	left: 20px;
+}
+
+.start-squares-container {
+	position: relative;
+	vertical-align: top;
+	height: 90px;
+	transition: height .2s;
+}
+
+.start-squares-container.expanded {
+	height: 280px;
+}
+
+.start {
+	margin-bottom: 20px;
+}
+
+.share-form {
+	display: inline-block;
+	width: 0;	
+	overflow: hidden;
+	transition: width .2s;
+}
+
+.share-form.open {
+	width: 400px;
+}
+
+.share-input {
+	display: block;
+	width: 100%;
+	padding: 8px;
+	font-size: 12px;
+	margin-bottom: 10px;
+	border: 2px solid rgb(230,230,232);
+	border-radius: 3px;
+}
+
+.share-input:focus {
+	border-color: rgb(140, 140, 255); 
+	outline: none;
+}
+
+.share-text-area {
+	height: 108px;
+	resize: none;
+}
+
+.share-track-file {
+	width: 70px;
+	height: 70px;
+	flex-grow: 0;
+	position: relative;
+}
+
+.share-inputs, .share-track-file {
+	display: inline-block;
+}
+
+.share-inputs {
+	width: 330px;
+	flex-grow: 1;
+}
+
+.share-upper-form {
+	display: flex;
+}
+
+.share-file-icon {
+	width: 80%;
+	margin-top: 17px;
+	opacity: 70%;
+	cursor: pointer;
+}
+
+.share-close {
+	width: 40px;
+}
+
+.share-close>img {
+	width: 100%;
+}
+.share-save {
+	margin-right: 20px;
+}
