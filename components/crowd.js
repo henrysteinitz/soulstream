@@ -14,6 +14,9 @@ export default class Crowd extends Component {
 
 	componentDidMount() {
 		const { account, song } = this.props
+		if (!song) {
+			return
+		}
 		fetch(`/api/crowd/get_comments`, {
 			method: 'POST',
 			headers: {
@@ -38,6 +41,7 @@ export default class Crowd extends Component {
 	}
 
 	handleComment = (e) => {
+		console.log('comment')
 		this.setState({ comment: e.target.value })
 	}
 

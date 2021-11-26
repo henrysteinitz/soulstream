@@ -1,4 +1,6 @@
 import { Component } from 'react'
+import classnames from 'classnames'
+import Draggable from 'react-draggable'
 
 import ArtistLink from './artist_link.js'
 import Content from './content.js'
@@ -22,32 +24,48 @@ export default class Track extends Component {
 		crowdHover: false
 	}
 
+	holdTimeout = null
+
+	beginMouseHold = (e) => {
+		e.preventDefault()
+		this.holdTimeout = setTimeout(this.props.startTrackDragging(this.props.song.id), 700)
+	}
+
+	endMouseHold = () => {
+		clearTimeout(this.holdTimeout)
+	}
+
 	render() {
 		const { likeHover, crowdHover, showCrowd } = this.state
-		const { form, song, isPlaying, playingId, play, pause, currentTime, totalTime, skipTo, account, artist } = this.props
-		const isCurrentlyPlaying = isPlaying && playingId === song.id
+		const { form, song, isPlaying, playingId, play, pause, currentTime, totalTime, skipTo, account, artist, noArt, noReason, startTrackDragging } = this.props
+		const isCurrentlyPlaying = song && isPlaying && (playingId === song.id)
 
 		return (
 			<div className="track-container">
-			<div className="track">
-				<Content size="medium" art={song.artUrl} /> 
+				<div className={classnames('track', { wide: !noArt })} 
+					onMouseDown={this.beginMouseHold}
+					onMouseUp={this.endMouseHold}
+				>
+					{noArt || <Content size="medium" art={song.artUrl} />}
 					<div className="track-player">
-						<div className="track-reason">
-							<ArtistLink artist={bird} /> shared 
-						</div>
+						{   noReason && <div className="track-reason" / >}
+						{	noReason ||
+							<div className="track-reason">
+								<ArtistLink artist={bird} /> shared 
+						</div>}
 						<div className="track-title">
-							{song.title}
+							{song && song.title}
 						</div>
 						<div className="track-meta-lower">
 							<div className="title-artist inline">
-								{artist && artist.name}
+								{artist && artist.artist.name}
 							</div>
 							{
-								song.album && 
+								song && song.albums && song.albums[0] &&
 								<div className="inline">
 									<div className="circle" />
 									<div className="title-album inline">
-										Overgrown
+										{song.albums[0].album.title}
 									</div>
 								</div>
 							}		
@@ -95,7 +113,7 @@ export default class Track extends Component {
 								</div>
 							</div>
 						</div>
-						<Time currentTime={playingId === song.id ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  /> 
+						<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  /> 
 					</div>
 				</div>
 				<Crowd

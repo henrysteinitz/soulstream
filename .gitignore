@@ -5,3 +5,4 @@ node_modules
 .vercel
 
 public/test_data/music/
+public/test_data/video/

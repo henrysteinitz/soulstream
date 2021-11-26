@@ -10,6 +10,20 @@ import Mural from './mural.js'
 import Right from './right.js'
 import Upload from './upload.js'
 
+import { VerseMap } from '../state/lyrics.js'
+
+
+const mapTracksById = (tracks) => {
+	let result = {}
+	tracks.forEach((track) => {
+		result[track.id] = {...track}
+		console.log("Map tracks by id .verses")
+		console.log(result[track.id].verses)
+		result[track.id].verses = result[track.id].verses ? new VerseMap(result[track.id].verses) : new VerseMap([]) 
+	})
+	return result
+}
+
 export default class Stereo extends Component {
 
 	state = {
@@ -20,6 +34,12 @@ export default class Stereo extends Component {
 		scrubbingTrack: false,
 		scrubbingPlayer: false,
 		screenOn: false,
+		typing: false,
+		tracks: this.props.stream,
+		tracksById: mapTracksById(this.props.stream),
+		queue: [], // list of track ids\
+		defaultQueue: [],
+		dragTrackId: null
 		// TODO: move to a global store.
 	}
 
@@ -29,7 +49,7 @@ export default class Stereo extends Component {
 		window.addEventListener('keydown', (e) => this.handleSpacebar(e));
 	}
 
-	play = (song) => {
+	play = (song, source="STREAM") => {
 		if (this.state.song && song.id === this.state.song.id) {
 			this.setState({ 
 				isPlaying: true, 
@@ -42,6 +62,9 @@ export default class Stereo extends Component {
 			})
 		} else {
 			clearInterval(this.timeAnimationInterval)
+			if (source === 'STREAM') {
+				// set default queue.
+			}
 			this.setState({ 
 				isPlaying: true, 
 				currentTrackTime: 0, 
@@ -98,19 +121,50 @@ export default class Stereo extends Component {
 	toggleScreen = () => this.setState({ screenOn: !this.state.screenOn })
 
 	handleSpacebar = (e) => {
-		if (e.key === ' ') {
+		if (e.key === ' ' && ! this.state.typing) {
 			e.preventDefault()
 			this.toggle()
 		}
 	}
 
+	addVerse = (verse, trackId) => {
+		const nextTracksById = {...this.state.tracksById}
+		nextTracksById[trackid].verses.insert(verse)
+		this.setState({
+			tracksById: nextTracksById
+		}, () => this.syncTracks())
+	}
+
+	syncSteamState = () => {
+		const nextStream = this.state.tracks.map(x => (
+			this.state.tracksById[x.id]
+		))
+		this.setState({
+			tracks: nextStream
+		})
+	}
+
+	addToQueue = (id) => {
+		this.setState({queue: [...this.state.queue, id]})
+	}
+
+	startTrackDragging = (id) => () => {
+		this.setState({ dragTrackId: id })
+	}
+
+	stopTrackDragging = () => {
+		this.setState({ dragTrackId: null })
+	}
+
 	render() {
-		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn } = this.state
+		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn, tracks, dragTrackId } = this.state
 		const { signedIn, startSession, stream, account, artist } = this.props
-		console.log(this.context.path)
+
+		const realStream = tracks || stream
+		console.log(dragTrackId)
 
 		return (
-			<div className="page-outer-container" onKeyDown={this.handleSpacebar}>
+			<Helipad className="page-outer-container" onKeyDown={this.handleSpacebar} modal={<Upload />}>
 				{/*
 					signedIn ||
 					<video autoPlay muted loop className="background-video">
@@ -124,13 +178,17 @@ export default class Stereo extends Component {
 {/*				<Route path="/[artist]">
 					<Mural src="test_data/artistsbigbirb.jpg" />
 				</Route>*/}
-				<Helipad className={classnames('page-content', { center: !signedIn })} modal={<Upload />}>
-					<div className="left fake" />
+				{/*<div className="mural-container">
+					{ screenOn && <div className="mural-fake" /> }	
+					<Mural />
+				</div>*/}
+				<div className={classnames('page-content', { center: !signedIn })}>	
+					{ screenOn && <div className="left fake" /> }		
 		    		<Left ref="left" 
 		    			toggle={this.toggle} 
 		    			play={this.play} 
 		    			pause={this.pause} 
-		    			nowPlaying={song}
+		    			nowPlaying={song && this.state.tracksById[song.id]}
 		    			isPlaying={isPlaying}
 		    			signedIn={signedIn}
 		    			startSession={startSession}
@@ -141,7 +199,13 @@ export default class Stereo extends Component {
 		    			screenOn={screenOn}
 		    			account={account} 
 		    			artist={artist}
-		    			/>
+		    			setTyping={(value) => this.setState({ typing: value })}
+		    			addVerse={this.addVerse}
+		    			dragTrackId={dragTrackId}
+		    			addToQueue={this.addToQueue}
+		    			queueTracks={this.state.queue.map((id) => this.state.tracksById[id])}
+		    			stopTrackDragging={this.stopTrackDragging}
+		    		/>
 		    		{ 
 		    			signedIn && 
 		    			<Right toggle={this.toggle} 
@@ -153,13 +217,14 @@ export default class Stereo extends Component {
 		    				currentTrackTime={currentTrackTime}
 		    				totalTrackTime={totalTrackTime}
 		    				skipTo={this.skipTo}
-		    				stream={stream}
+		    				stream={realStream}
 		    				account={account}
-		    				artist={artist} />
+		    				artist={artist}
+		    				startTrackDragging={this.startTrackDragging} />
 		    		}
 					<audio id="audio" src={song && song.audioUrl} ref={(input) => {this.audioRef = input}} />
-				</Helipad>
-			</div>
+				</div>
+			</Helipad>
 		)
 	}
 }

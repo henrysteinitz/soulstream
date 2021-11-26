@@ -17,6 +17,7 @@ model Account {
   artists       ArtistAccount[]
   comments      TrackComment[]
   following     ArtistFollow[]
+  trackLikes    TrackLike[]
   passwordHash  String?
   sessionToken  String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
@@ -45,6 +46,8 @@ model Track {
   artists       TrackArtist[]    
   albums        AlbumTrack[]	 
   comments      TrackComment[]     
+  verses        Verse[]
+  likes         TrackLike[]
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -113,3 +116,36 @@ model ArtistFollow {
   createdAt     DateTime   @default(now()) @map(name: "created_at")
   @@id([accountId, artistId]) 
 }
+
+model Verse {
+  id            Int        @default(autoincrement()) @id
+  body          String     @db.Text      
+  startTime     Float
+  endTime       Float
+  track         Track      @relation(fields: [trackId], references: [id])
+  trackId       Int
+}
+
+model TrackLike {
+  account       Account    @relation(fields: [accountId], references: [id])
+  accountId     Int
+  track         Track      @relation(fields: [trackId], references: [id])
+  trackId       Int
+  @@id([accountId, trackId])      
+}
+
+model TrackPlay {
+  account       Account    @relation(fields: [accountId], references: [id])
+  accountId     Int
+  track         Track     @relation(fields: [trackId], references: [id])
+  trackId       Int    
+  createdAt     DateTime   @default(now()) @map(name: "created_at")
+
+}
+
+model QueueElement {
+  account       Account    @relation(fields: [accountId], references: [id])
+  accountId     Int
+  position      Int
+}
+

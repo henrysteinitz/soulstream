@@ -12,7 +12,9 @@ export default class SignIn extends Component {
 		passwordRetype: '',
 		prototypeKey: '',
 		signUp: false,
-		prototypeLocked: true
+		prototypeLocked: true,
+		basicInfo: false,
+		session: null
 	}
 
 	prototypePasswordHash = 'd238673759b06921ffd2b9e8dc7ace8b247442143efd57b4b51b75ca64464cdd'
@@ -88,6 +90,7 @@ export default class SignIn extends Component {
 		})
 	}
 
+
 	unlockPrototype = () => {
 		if (this.hash(this.state.prototypeKey) === this.prototypePasswordHash) {
 			this.setState({ prototypeLocked: false })
@@ -101,7 +104,7 @@ export default class SignIn extends Component {
 	}
 
 	render() {
-		const { signUp, prototypeLocked } = this.state
+		const { signUp, prototypeLocked, basicInfo } = this.state
 		console.log('protoKey')
 		const key = randomBytes(32).toString('hex');
 		console.log(key)
@@ -109,6 +112,12 @@ export default class SignIn extends Component {
 
 		return (
 			<div className="sign-in">
+				{
+					basicInfo && 
+					<input className={classnames('signin-input', 'signin-email')} 
+						placeholder="Name" 
+						onChange={this.handleEmail} />
+				}
 				{
 					prototypeLocked || 
 					<input className={classnames('signin-input', 'signin-email')} 

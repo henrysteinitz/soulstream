@@ -1,11 +1,28 @@
+.logo-container {
+	position: absolute;
+	width: 100%;
+	background-color: white;
+}
+
+.logo-container.white {
+	background-color: black;
+}
+
+.logo-container.black {
+	background-color: white;
+}
+
 .logo {
 	font-family: "Montserrat";
 	font-size: 18px;
 	font-weight: 600;
 	letter-spacing: 4px;
 	vertical-align: bottom;
+	margin-top: 4px;
 	cursor: pointer;
 	transition: font-size .24s, letter-spacing .24s;
+	text-align: center;
+	z-index: 1;
 }
 
 .logo.big {
@@ -14,74 +31,90 @@
 }
 
 .e {
-
+	z-index: 10;
 	width: 24px;
 	position: relative;
 	display: inline-block;
-	margin-right: 8px;
-	vertical-align: bottom;
-	margin-bottom: 6px;
+	overflow: hidden;
 }
 
 .e.big {
-	height: 26px;
+	height: 30px;
 	width: 36px;
-	margin-bottom: 6px;
-	margin-right: 16px;
+	margin-bottom: 3px;
 }
 
 .align-base {
-	vertical-align: bottom;
 	display: inline-block;
 }
 
+.e-bar.white {
+	background-color: white;
+}
+
+.e-bar.black {
+	background-color: black;
+}
+
 .e-bar {
-	background: rgb(200,200,255);
-	height: 1px;
-	transition: height .24s, margin-bottom .24s, margin-top .24s;
-	animation: wavey ease-in-out 2.4s;
+	width: 2px;
+	transition: height 1.8s;
+	animation: wavey ease-in-out 1.8s;
 	animation-iteration-count: infinite;
-	display: block;
+	display: inline-block;
+	margin-right: 3px;
+	font-smooth: never;
+	z-index: 10;
+}
+
+.e-bar:last-child {
+	margin-right: 0;
 }
 
 .e-bar.big {
-	height: 4px;
+	width: 3px;
 }
 
-.e-bar.top {
-	margin-bottom: 3px;
-	width: 100%;
+.e-bar.one {
+	height: 100%;
 	animation-delay: 0s;
 }
 
-.e-bar.top.big{
-	margin-bottom: 6px;
+.e-bar.one.big{
 }
 
-.e-bar.middle {
-	width: 100%;
+.e-bar.two {
+	height: 100%;
 	animation-delay: .8s;
 }
 
-.e-bar.bottom {
-	margin-top: 3px;
-	width: 100%;
+.e-bar.three {
+	height: 100%;
 	animation-delay: .4s;
 }
 
-.e-bar.bottom.big {
-	margin-top: 6px;
+.e-bar.three.big {
+}
+
+.e-bar.four {
+	height: 100%;
+	animation-delay: .2s;
+}
+
+.e-bar.five {
+	height: 100%;
+	animation-delay: .6s;
 }
 
 @keyframes wavey {
 	0% {
-		width: 100%;
+		height: 100%;
 	}
 	50% {
-		width: 24%;
+		height: 44%;
 	}
 	100% {
-		width: 100%;
+		height: 100%;
 	}
 }
 

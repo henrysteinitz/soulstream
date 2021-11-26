@@ -27,9 +27,28 @@ export async function getStaticProps(context){
 	    				}
 	    			}
 	    		}
+	    	},
+	    	albums: {
+	    		include: {
+	    			album: {
+	    				select: {
+	    					title: true
+	    				}
+	    			}
+	    		}
+	    	},
+	    	verses: {
+	    		select: {
+	    			body: true,
+	    			startTime: true,
+	    			endTime: true
+	    		},
+	    		orderBy: [
+    				{startTime: 'asc'},
+    				{endTime: 'asc'}
+    			]
 	    	}
-		}
-	})
+	}})
 
 	return { props: { stream } }
 }

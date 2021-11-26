@@ -3,17 +3,18 @@ import { Route, Atlas } from '../lib/atlas/atlas.js'
 
 import { retrograde, signature } from '../test/test.js'
 import ArtistPage from './artistpage.js'
+import Mural from './mural.js'
 import Start from './start.js'
 import Track from './track.js'
 import Type from '../lib/type/type'
 
 const Right = (props) => {
-	const { playingId, isPlaying, play, pause, currentTrackTime, totalTrackTime, skipTo, stream, account, artist} = props
+	const { playingId, isPlaying, play, pause, currentTrackTime, totalTrackTime, skipTo, stream, account, artist, startTrackDragging} = props
 
 	return (
 		<div className="page">
 			<Route path="/">
-				<Start />
+				{/*<Start />*/}
 				{stream && stream.map((track) => (
 				<Track 
 					song={track} 
@@ -26,7 +27,8 @@ const Right = (props) => {
 					skipTo={skipTo}
 					account={account}
 					artist={track.artists[0]}
-					id={track.id} />
+					id={track.id}
+					startTrackDragging={startTrackDragging} />
 				))}
 			</Route>
 			<Route path="/library">

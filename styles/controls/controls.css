@@ -1,3 +1,13 @@
+.controls {
+	height: 61px;
+	overflow: hidden;
+	border-top: 1px solid rgb(230,230,230);
+}
+
+.controls.white {
+	background-color: white;
+}
+
 .control {
 	display: inline-block;
 	margin-right: 12px;
@@ -53,12 +63,19 @@
 }
 
 .track-container {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .track {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
+	max-width: 700px;
+	min-width: 500px;
+	text-align: left;
+}
+
+.track.wide {
+	width: 660px;
 }
 
 .track-player {
@@ -69,7 +86,7 @@
 .track-title {
 	font-family: "Montserrat";
 	font-weight: 500;
-	font-size: 28px;
+	font-size: 22px;
 	margin-left: 10px;
 	letter-spacing: 2px;
 }
@@ -82,7 +99,7 @@
 	letter-spacing: 1px;
 }
 
-.track-meta-lower>.circle {
+.track-meta-lower>.inline>.circle {
 	background-color: black;
 }
 
@@ -121,7 +138,12 @@
 	filter: invert(100%);
 }
 
-.control.track-button {
+.control.play-button.screen-button {
+	margin-left: 10px;
+}
+
+.track-button {
+	filter: invert(100%);
 	width: 40px;
 	margin-bottom: -3px
 }
@@ -132,21 +154,41 @@
 	margin-left: -4px;
 }
 
-.controls-left {
+.left:hover .controls-left {
+	opacity: 1;
+}
+
+.left:hover .controls-right {
+	opacity: 1;
+}
+
+.screen.controls-left {
 	text-align: left;
 	flex-grow: 0;
+	z-index: 5;
+	transition: opacity .2s;
+}
+
+.screen.controls-left {
+	opacity: 0
 }
 
 .controls-right {
 	position: relative;
 	text-align: right;
 	flex-grow: 1;
+
+	transition: opacity .2s;
+}
+
+.screen.controls-right {
+	opacity: 0
 }
 
 .little-controls {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 6px;
+	right: 14px;
 }
 
 .little-control {
@@ -163,6 +205,20 @@
 
 .little-control.bubble:hover {
 	cursor: pointer;
+}
+
+.verse-editor {
+	display: inline-block;
+}
+
+.lyrics-editor-container {
+	width: 100%;
+}
+
+.add-lyrics-button {
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
 

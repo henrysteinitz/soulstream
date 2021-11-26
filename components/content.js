@@ -29,17 +29,20 @@ export default class Content extends Component {
 	}
 
 	render() {
-		const { size, isCurrent, art, toggle, play, pause, isNewArtist } = this.props;
+		const { size, isCurrent, art, toggle, play, pause, isNewArtist, song } = this.props;
 
 		return (
 			<div className={classnames("content", size)} >
-				{ isNewArtist ? <div  className="new-profile-pic-box" /> : <img src={art} /> }
-				<div className="fullscreen-controls-lower">
-					<SongTitle 
-						title="Signature" 
-						artist="Photography"
-						album="Freeform 8" />
-				</div>		
+				{ isNewArtist ? <div  className="new-pic-box" /> : <img src={art} /> }
+				{ 
+					song && 
+					<div className="fullscreen-controls-lower">
+						<SongTitle 
+							title={song.title}
+							artist={song.artists && song.artists[0] && song.artists[0].artist.name}
+							album={song.albums && song.albums[0] && song.albums[0].album.title} />
+					</div>	
+				}	
 			</div>
 		)
 	}

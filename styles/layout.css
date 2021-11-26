@@ -15,10 +15,10 @@ a {
 
 .page-content {
 	text-align: left;
-	width: 100%;
-	max-width: 1300px;
 	height: 100%;
 	background-color: white;
+	flex-direction: row;
+	text-align: center;
 }
 
 .page-outer-container {
@@ -35,10 +35,8 @@ a {
 	margin-left: 40px;
 }
 
-.page-content {
-	display: inline-flex;
-	flex-direction: row;
-}
+
+
 
 .page-content.center {
 	display: inline-flex;
@@ -50,10 +48,27 @@ a {
 	align-items: center;
 }
 
-.left {
-	width: 50%;
-	max-width: 480px;
+.left.side {
+	position: fixed;
 	height: 100vh;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	width: 550px;
+	background: white;
+	border-right: 1px solid rgb(230,230,232);
+	padding-right: 0px;
+}
+
+.left.bar {
+	position: fixed;
+	bottom: 10px;
+	left: 0;
+	right: 0;
+	height: 50px;
+	padding-bottom: 0;
+	background: white;
+	z-index: 3;
 }
 
 .left.real {
@@ -61,14 +76,14 @@ a {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
 }
 
 .left.fake {
-	flex-grow: 0;
-	top: 0;
-	flex-direction: column;
-	align-items: center;	
+	width: 550px;
+	flex-direction: row;
+	align-items: center;
+	display: inline-flex;
+	height: 100%;	
 }
 
 .right-title {
@@ -140,4 +155,33 @@ a {
 
 }
 
+
+.mural-container {
+	width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+}
+
+.mural {
+	flex-grow: 1;
+	position: relative;
+	height: 400px;
+	background-color: black;
+	overflow: hidden;
+	display: inline-flex;
+}
+
+.mural-fake {
+	display: inline-flex;
+	position: relative;
+	width: 550px;
+	height: 400px;
+	flex-grow: 0;
+}
+
+.mural-img {
+	margin-top: -300px;
+	width: 100%;
+}
 

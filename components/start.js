@@ -9,6 +9,7 @@ export default class Start extends Component {
 
 	state = {
 		uploadTrack: false,
+		trackFile: null,
 		artUrl: null,
 		artFile: null
 	}
@@ -24,13 +25,6 @@ export default class Start extends Component {
 		return (
 			<div className="start">
 				<div className={classnames('start-squares-container', { expanded: this.state.uploadTrack })}>
-					<div className={classnames('start-square', { open: !this.state.uploadTrack })}>
-						<img src="test_data/radio.jpg" className="start-image" />
-						<div className="start-square-shade" />
-						<div className="start-square-text">
-							radio
-						</div>
-					</div>
 					<Helipad onDrop={this.handleArtDrop} 
 						stopPropagation 
 						className={classnames('start-square', 'open', { expanded: this.state.uploadTrack })} 

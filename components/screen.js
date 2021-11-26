@@ -22,15 +22,14 @@ export default class Screen extends Component {
 		const { on, toggle, nowPlaying, artist, atlas } = this.props;
 
 		const isNewArtist = atlas.getLastUrlSegment() === 'new'
-		console.log(isNewArtist)
 
 		return (
 			<div className={classnames("screen", "fullscreen", {"off": !on})} >
 				<Route path="/">
-					<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} />
+					<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} song={nowPlaying} />
 				</Route> 
 				<Route path="/[artist]">
-					<Content size="fullscreen" art={isNewArtist ? "test_data/profile.jpg" : (artist && artist.pictureUrl)} />
+					<Content size="fullscreen" art={isNewArtist ? "test_data/profile.jpg" : (artist && artist.pictureUrl)} song={nowPlaying} />
 				</Route>
 			</div>
 		)

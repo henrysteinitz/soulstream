@@ -6,7 +6,7 @@ import Controls from './controls.js'
 import Logo from './logo.js'
 import Search from './search.js'
 import SignIn from './signin.js'
-
+import Track from './track.js'
 
 
 export default class Navigation extends Component {
@@ -22,12 +22,16 @@ export default class Navigation extends Component {
 			signedIn, 
 			startSession, 
 			currentTrackTime, 
-			totalTrackTime ,
-			skipTo
+			totalTrackTime,
+			skipTo,
+			account,
+			showQueue,
+			showLyrics,
+			showing
 		} = this.props
+
 		return (
 			<div className="navigation">
-				<Logo big={!pocketMode} toggleScreen={toggleScreen} />
 				<Controls 
 					play={play} 
 					pause={pause} 
@@ -38,13 +42,18 @@ export default class Navigation extends Component {
 					currentTrackTime={currentTrackTime}
 		    		totalTrackTime={totalTrackTime}
 		    		skipTo={skipTo}
+		    		toggleScreen={toggleScreen}
+		    		account={account}
+		    		showQueue={showQueue}
+		    		showLyrics={showLyrics}
+		    		showing={showing}
 				/>
-				{signedIn && <Link className={classnames("selected", { active: Atlas.path === '/' })} to="/">
+				{/*{signedIn && <Link className={classnames("selected", { active: Atlas.path === '/' })} to="/">
 				<div className="nav-link">Stream</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/library"><div className="nav-link">Library</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/history"><div className="nav-link">History</div></Link>}
 				{signedIn && <Link activeClassName="selected" to="/type"><div className="nav-link">Type</div></Link>}
-				{signedIn || <SignIn startSession={startSession} />}
+				{signedIn || <SignIn startSession={startSession} />}*/}
 				
 			</div>
 		)
