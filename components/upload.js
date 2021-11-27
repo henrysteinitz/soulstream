@@ -2,6 +2,7 @@ import { Component } from 'react'
 
 import classnames from 'classnames'
 import Helipad from '../lib/helipad/helipad.js'
+import supabase from '../lib/supabase.js'
 
 export default class Upload extends Component {
 	state = {

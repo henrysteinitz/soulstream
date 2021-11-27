@@ -59,7 +59,8 @@ export default class Left extends Component {
 			dragTrackId,
 			queueTracks,
 			addToQueue,
-			stopTrackDragging } = this.props
+			stopTrackDragging,
+			playQueueTrackByIndex } = this.props
 		const { showing } = this.state
 		const nowPlayingLyrics = nowPlaying && nowPlaying.verses
 		console.log(nowPlayingLyrics)
@@ -115,6 +116,8 @@ export default class Left extends Component {
 								addToQueue={addToQueue}
 								dragTrackId={dragTrackId}
 								stopTrackDragging={stopTrackDragging}
+								playQueueTrackByIndex={playQueueTrackByIndex}
+								ref={(input) => {this.queue = input}}
 							 />
 						}
 						<Crowd

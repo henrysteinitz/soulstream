@@ -9,7 +9,7 @@ import Track from './track.js'
 import Type from '../lib/type/type'
 
 const Right = (props) => {
-	const { playingId, isPlaying, play, pause, currentTrackTime, totalTrackTime, skipTo, stream, account, artist, startTrackDragging} = props
+	const { playingId, isPlaying, play, pause, currentTrackTime, totalTrackTime, skipTo, stream, account, artist, startTrackDragging, stopTrackDragging} = props
 
 	return (
 		<div className="page">
@@ -28,7 +28,8 @@ const Right = (props) => {
 					account={account}
 					artist={track.artists[0]}
 					id={track.id}
-					startTrackDragging={startTrackDragging} />
+					startTrackDragging={startTrackDragging}
+					stopTrackDragging={stopTrackDragging} />
 				))}
 			</Route>
 			<Route path="/library">

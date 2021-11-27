@@ -35,7 +35,7 @@ export default class Controls extends Component {
 			showChat,
 			showing
 		} = this.props
-		const { showCrowd, likeHover, crowdHover, lyricsHover, queueHover } = this.state
+		const { likeHover, crowdHover, lyricsHover, queueHover } = this.state
 		return (
 			// TODO: remove / replace 'signIn &&' for signin page shuffle
 			<div className={classnames('controls', { black: pocketMode, white: !pocketMode })}>
@@ -78,7 +78,7 @@ export default class Controls extends Component {
 								src={crowdHover ? 'icons/icons8-speech_bubble_filled 2.png' : 'icons/icons8-speech_bubble_filled.png'}
 								onMouseOver={() => this.setState({ crowdHover: true })}
 								onMouseLeave={() => this.setState({ crowdHover: false })}
-								onClick={() => this.setState({ showChat })} />
+								onClick={showChat} />
 							<img 
 								className="little-control like"
 								src={lyricsHover ? 'icons/icons8-generic_text_filled.png' : 'icons/icons8-generic_text_filled.png'}

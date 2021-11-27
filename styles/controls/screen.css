@@ -101,6 +101,8 @@
 	margin-bottom: 0px;
 	filter: grayscale(0%);
 	opacity: 1;
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 .bold {
 	font-weight: bold;
@@ -115,6 +117,7 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
+	overflow-y: scroll;
 }
 
 .queue-dropzone {
@@ -122,9 +125,51 @@
 	width: 100%;
 	height: 100%;
 	z-index: 10;
-	background-color: blue;
+	background: rgba(255,255,255,.7);
+}
+
+.queue-dropzone-text {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	text-align: center;
 }
 
 .queue-track{
+	width: 100%;
 	color: black;
+	border-bottom: 1px solid rgb(220,220,220);
+	text-align: left;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+.queue-track:hover {
+	background: rgb(220,220,255);
+}
+
+.queue-track-art {
+	width: 100%;
+	vertical-align: top;
+}
+
+.queue-track-title {
+	margin-top: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.queue-track-artist {
+	font-size: 12px;
+}
+
+.queue-track-art {
+	border-right: 1px solid rgb(220,220,220);
+}
+
+.queue-track-art-container {
+	display:  inline-block;
+	width: 70px;
+	vertical-align: top;
+	margin-right: 20px;
 }

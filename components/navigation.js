@@ -27,6 +27,7 @@ export default class Navigation extends Component {
 			account,
 			showQueue,
 			showLyrics,
+			showChat,
 			showing
 		} = this.props
 
@@ -46,6 +47,7 @@ export default class Navigation extends Component {
 		    		account={account}
 		    		showQueue={showQueue}
 		    		showLyrics={showLyrics}
+		    		showChat={showChat}
 		    		showing={showing}
 				/>
 				{/*{signedIn && <Link className={classnames("selected", { active: Atlas.path === '/' })} to="/">

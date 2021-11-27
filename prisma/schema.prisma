@@ -18,6 +18,7 @@ model Account {
   comments      TrackComment[]
   following     ArtistFollow[]
   trackLikes    TrackLike[]
+  trackPlays    TrackPlay[]
   passwordHash  String?
   sessionToken  String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
@@ -48,6 +49,7 @@ model Track {
   comments      TrackComment[]     
   verses        Verse[]
   likes         TrackLike[]
+  plays         TrackPlay[]
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -135,17 +137,17 @@ model TrackLike {
 }
 
 model TrackPlay {
+  id            Int        @default(autoincrement()) @id
   account       Account    @relation(fields: [accountId], references: [id])
   accountId     Int
-  track         Track     @relation(fields: [trackId], references: [id])
+  track         Track      @relation(fields: [trackId], references: [id])
   trackId       Int    
   createdAt     DateTime   @default(now()) @map(name: "created_at")
-
 }
 
-model QueueElement {
-  account       Account    @relation(fields: [accountId], references: [id])
-  accountId     Int
-  position      Int
-}
+// model QueueElement {
+//  account       Account    @relation(fields: [accountId], references: [id])
+//  accountId     Int
+//  position      Int
+//}
 

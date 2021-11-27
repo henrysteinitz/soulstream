@@ -47,6 +47,7 @@ export default class Stereo extends Component {
 
 	componentDidMount() {
 		window.addEventListener('keydown', (e) => this.handleSpacebar(e));
+		this.audioRef.onended = this.playNextInQueue
 	}
 
 	play = (song, source="STREAM") => {
@@ -77,6 +78,20 @@ export default class Stereo extends Component {
 			})
 		}
 
+	}
+
+	playNextInQueue = () => {
+		const { queue, tracksById } = this.state
+		if (queue.length > 0) {
+			this.play(tracksById[queue.shift()], 'QUEUE')
+			this.setState({ queue })
+		}
+	}
+
+	playQueueTrackByIndex = (i) => () => {
+		let { queue, tracksById } = this.state
+		this.play(tracksById[queue[i]], 'QUEUE')
+		this.setState({ queue: queue.slice(i + 1) })
 	}
 
 	animateTime = () => {
@@ -148,12 +163,19 @@ export default class Stereo extends Component {
 		this.setState({queue: [...this.state.queue, id]})
 	}
 
-	startTrackDragging = (id) => () => {
+	startTrackDragging = (id) => {
 		this.setState({ dragTrackId: id })
 	}
 
-	stopTrackDragging = () => {
+	stopTrackDragging = (id, e) => {
 		this.setState({ dragTrackId: null })
+		const queueRect = this.left.queue.queueDropzone.getBoundingClientRect()
+		if (queueRect.left <= e.clientX && 
+			e.clientX<= queueRect.right && 
+			queueRect.top <= e.clientY && 
+			e.clientY <= queueRect.bottom) {
+				this.addToQueue(id)	
+		}
 	}
 
 	render() {
@@ -205,6 +227,9 @@ export default class Stereo extends Component {
 		    			addToQueue={this.addToQueue}
 		    			queueTracks={this.state.queue.map((id) => this.state.tracksById[id])}
 		    			stopTrackDragging={this.stopTrackDragging}
+		    			playQueueTrackByIndex={this.playQueueTrackByIndex}
+		    			ref={(input) => {this.left = input}}
+
 		    		/>
 		    		{ 
 		    			signedIn && 
@@ -220,7 +245,8 @@ export default class Stereo extends Component {
 		    				stream={realStream}
 		    				account={account}
 		    				artist={artist}
-		    				startTrackDragging={this.startTrackDragging} />
+		    				startTrackDragging={this.startTrackDragging}
+		    				stopTrackDragging={this.stopTrackDragging} />
 		    		}
 					<audio id="audio" src={song && song.audioUrl} ref={(input) => {this.audioRef = input}} />
 				</div>

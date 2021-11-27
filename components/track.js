@@ -21,30 +21,68 @@ export default class Track extends Component {
 	state = {
 		showCrowd: false,
 		likeHover: false,
-		crowdHover: false
+		crowdHover: false,
+		showTrackIcon: false,
+		iconStyle: { left: 0, top: 0 }
 	}
 
 	holdTimeout = null
+	mouseMoveListener = null
 
 	beginMouseHold = (e) => {
 		e.preventDefault()
-		this.holdTimeout = setTimeout(this.props.startTrackDragging(this.props.song.id), 700)
+		this.holdTimeout = setTimeout(() => {
+			this.props.startTrackDragging(this.props.song.id)
+			this.setState({ showTrackIcon: true }, () => {
+				this.mouseMoveListener = window.addEventListener('mousemove', (e) => {
+					this.setState({iconStyle: { left: e.clientX - 35, top: e.clientY - 35}})
+				})
+			})
+		}, 400)
 	}
 
-	endMouseHold = () => {
+	endMouseHold = (e) => {
 		clearTimeout(this.holdTimeout)
+		window.removeEventListener('mousemove', this.mouseMoveListener)
+		this.setState({ showTrackIcon: false })
+	}
+
+	endMouseDrag = (e) => {
+		this.props.stopTrackDragging(this.props.song.id, e)
+		window.removeEventListener('mousemove', this.mouseMoveListener)
+		this.setState({ showTrackIcon: false })
 	}
 
 	render() {
-		const { likeHover, crowdHover, showCrowd } = this.state
-		const { form, song, isPlaying, playingId, play, pause, currentTime, totalTime, skipTo, account, artist, noArt, noReason, startTrackDragging } = this.props
+		const { likeHover, crowdHover, showCrowd, showTrackIcon, iconStyle } = this.state
+		const { 
+			form, 
+			song, 
+			isPlaying,
+			playingId, 
+			play, 
+			pause, 
+			currentTime, 
+			totalTime, 
+			skipTo, 
+			account, 
+			artist, 
+			noArt, 
+			noReason, 
+			startTrackDragging } = this.props
 		const isCurrentlyPlaying = song && isPlaying && (playingId === song.id)
 
 		return (
 			<div className="track-container">
-				<div className={classnames('track', { wide: !noArt })} 
+
+				{
+					showTrackIcon && 
+					<img className="track-icon" src={song.artUrl} ref={(input) => {this.trackIcon = input}} style={iconStyle} onMouseUp={this.endMouseDrag} />
+				}
+				<div 
+					className={classnames('track', { wide: !noArt })} 
 					onMouseDown={this.beginMouseHold}
-					onMouseUp={this.endMouseHold}
+					onMouseUp={this.endMouseHold} 
 				>
 					{noArt || <Content size="medium" art={song.artUrl} />}
 					<div className="track-player">
