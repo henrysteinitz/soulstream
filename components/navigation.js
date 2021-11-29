@@ -28,11 +28,13 @@ export default class Navigation extends Component {
 			showQueue,
 			showLyrics,
 			showChat,
-			showing
+			showing,
+			nightMode
 		} = this.props
 
 		return (
 			<div className="navigation">
+				<div className="fake-logo" onClick={toggleScreen} />
 				<Controls 
 					play={play} 
 					pause={pause} 
@@ -49,6 +51,7 @@ export default class Navigation extends Component {
 		    		showLyrics={showLyrics}
 		    		showChat={showChat}
 		    		showing={showing}
+		    		nightMode={nightMode}
 				/>
 				{/*{signedIn && <Link className={classnames("selected", { active: Atlas.path === '/' })} to="/">
 				<div className="nav-link">Stream</div></Link>}

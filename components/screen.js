@@ -24,13 +24,22 @@ export default class Screen extends Component {
 		const isNewArtist = atlas.getLastUrlSegment() === 'new'
 
 		return (
-			<div className={classnames("screen", "fullscreen", {"off": !on})} >
+			<div className={classnames("screen", "fullscreen", {
+					off: !on, 
+					video: nowPlaying && (nowPlaying.type === 'VIDEO'),
+					audio: nowPlaying && (nowPlaying.type === 'AUDIO'),
+				})} >
 				<Route path="/">
-					<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} song={nowPlaying} />
+					{
+						nowPlaying && (nowPlaying.type === 'VIDEO') ?
+						<video id="video" className="screen-video" src={nowPlaying && nowPlaying.audioUrl} ref={(input) => {this.videoRef = input}} /> :
+						<Content size="fullscreen" art={nowPlaying && nowPlaying.artUrl} toggle={toggle} song={nowPlaying} />
+					}
 				</Route> 
 				<Route path="/[artist]">
 					<Content size="fullscreen" art={isNewArtist ? "test_data/profile.jpg" : (artist && artist.pictureUrl)} song={nowPlaying} />
 				</Route>
+
 			</div>
 		)
 	}

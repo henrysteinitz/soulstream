@@ -29,7 +29,7 @@
 }
 
 .content.medium {
-	width: 166px;
+	width: 181px;
 }
 
 .content>img {
@@ -96,27 +96,39 @@
 
 .screen {
 	overflow-y: hidden;
-	height: 549px;
+	position: relative;
 	transition: height .24s, filter .24s, opacity .24s;
 	margin-bottom: 0px;
 	filter: grayscale(0%);
 	opacity: 1;
 	flex-grow: 0;
-	flex-shrink: 0;
+	margin-bottom: -3px;
+}
+
+.screen.video {
+}
+
+.screen-video {
+	width: 100%;
 }
 .bold {
 	font-weight: bold;
 }
 
 .lyrics-container {
+	position: relative;
+	width: calc(100% - 44px);
+	overflow-y: scroll;
 	padding: 22px;
 	font-size: 14px;
+	display: flex;
+	flex-grow: 1;
 }
 
 .queue {
 	position: relative;
 	width: 100%;
-	height: 100%;
+	flex-grow: 1;
 	overflow-y: scroll;
 }
 

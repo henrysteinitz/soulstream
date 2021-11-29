@@ -13,8 +13,14 @@ export default class Upload extends Component {
 	}
 
 	handleSubmit = () => {
-		const { title, artUrl } = this.state
-		const url = this.state.url || title.replace(" ", "-")
+		// const { title, artUrl } = this.state
+		// const url = this.state.url || title.replace(" ", "-")
+
+		supabase.storage.createBucket('trackstest1243sdfdas', { public: true }).then(({data, error}) => {
+			console.log(data)
+			console.log(error)
+		})
+		
 
 		/*
 		try {
@@ -29,7 +35,7 @@ export default class Upload extends Component {
 		    console.error(error);
 		  }
 		  */
-		exit()
+		// exit()
 	}
 
 	handleArtDrop = (file) => {
@@ -54,7 +60,7 @@ export default class Upload extends Component {
 				</Helipad>
 				<input type="text" className={classnames('upload_track-title', 'upload_textbox')} placeholder="Title" onChange={this.handleChange} />
 				<input type="url" className={classnames('upload_track-url', 'upload_textbox')} placeholder="Url" />
-				<button onClick={exit} className="upload_button">Upload</button>
+				<button onClick={this.handleSubmit} className="upload_button">Upload</button>
 			</div>
 		)
 	}

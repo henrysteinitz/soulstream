@@ -8,6 +8,11 @@
 	background-color: white;
 }
 
+.controls.black {
+	border-top: 1px solid rgb(30,30,30);
+	background-color: black;
+}
+
 .control {
 	display: inline-block;
 	margin-right: 12px;
@@ -67,11 +72,20 @@
 }
 
 .track {
+	position: relative;
 	display: inline-flex;
 	flex-direction: row;
-	max-width: 700px;
+	max-width: 770px;
 	min-width: 500px;
 	text-align: left;
+}
+
+.track-video {
+	width: 100%;
+}
+
+.track-video-container {
+	margin-bottom: 30px;
 }
 
 .track.wide {
@@ -134,7 +148,7 @@
 	vertical-align: bottom;
 }
 
-.control.play-button {
+.control.play-button.black {
 	filter: invert(100%);
 }
 
@@ -143,15 +157,21 @@
 }
 
 .track-button {
-	filter: invert(100%);
-	width: 40px;
+	width: 34px;
+	margin-left: 4px;
 	margin-bottom: -3px
 }
 
 .control.screen-button {
 	width: 24px;
 	margin-right: 28px;
-	margin-left: -4px;
+	z-index: 10;
+}
+.screen-button.play-button.black {
+	filter: invert(100%);
+}
+.screen-button.play-button.white {
+	filter: none;
 }
 
 .left:hover .controls-left {
@@ -167,6 +187,7 @@
 	flex-grow: 0;
 	z-index: 5;
 	transition: opacity .2s;
+	padding-left: 10px;
 }
 
 .screen.controls-left {
@@ -198,6 +219,9 @@
 	margin-left: 8px;
 }
 
+.little-control.night {
+	filter: invert(100%);
+}
 
 .little-control.like:hover {
 	cursor: pointer;

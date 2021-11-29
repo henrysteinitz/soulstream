@@ -6,12 +6,16 @@ import E from './e.js'
 
 export default class Logo extends Component {
 	render() {
-		const { big, toggleScreen, white } = this.props
+		const { big, xl, toggleScreen, white, full, signin, blues } = this.props
 
 		return (
-			<div className={classnames('logo-container')}>
-				<div className={classnames('logo', { big })} >
-					<E big={big} color={white ? 'white' : 'black'} toggleScreen={toggleScreen}  />
+			<div className={classnames('logo-container', { signin  })}>
+				<div className={classnames('logo', { big, xl })} >
+					<E big={big} xl={xl} color={white ? 'white' : 'black'} toggleScreen={toggleScreen} blues={blues} /> 
+					{
+						full && <span className="logo-text">soulstream</span>
+					}
+				
 				</div>
 			</div>
 		)

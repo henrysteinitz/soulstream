@@ -60,21 +60,28 @@ export default class Left extends Component {
 			queueTracks,
 			addToQueue,
 			stopTrackDragging,
-			playQueueTrackByIndex } = this.props
+			playQueueTrackByIndex,
+			nightMode,
+			playingVideo } = this.props
 		const { showing } = this.state
 		const nowPlayingLyrics = nowPlaying && nowPlaying.verses
 		console.log(nowPlayingLyrics)
+
+		if (!signedIn) {
+			return <SignIn />
+		}
 		return  (
 		<AtlasConsumer>
 			{ 
 				(atlas) => (
-					<div className={classnames('left', 'real', { side: screenOn, bar: !screenOn })}>
+					<div className={classnames('left', 'real', { side: screenOn, bar: !screenOn, wide: playingVideo })}>
 						<Screen on={screenOn || atlas.isArtist()} 
 							play={play} 
 							pause={pause} 
 							nowPlaying={nowPlaying} 
 							artist={artist}
-							atlas={atlas} />
+							atlas={atlas} 
+							ref={(input) => {this.screen = input}} />
 						<Navigation pocketMode={!screenOn} 
 							toggleScreen={toggleScreen} 
 							play={play} 
@@ -90,7 +97,8 @@ export default class Left extends Component {
 							showQueue={this.showQueue}
 							showLyrics={this.showLyrics}
 							showChat={this.showChat}
-							showing={showing} />
+							showing={showing}
+							nightMode={nightMode} />
 						{
 							(showing === showingOptions.lyricsEditor) && !dragTrackId &&
 							<LyricsEditor

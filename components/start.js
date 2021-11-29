@@ -36,7 +36,7 @@ export default class Start extends Component {
 							</div>
 						</div>
 					</Helipad>
-					<Share open={this.state.uploadTrack} artFile={this.state.artFile} close={this.closeUpload} />
+					<Share open={this.state.uploadTrack} artFile={this.state.artFile} close={this.closeUpload} artFile={this.state.artFile} />
 					<Link to="new">
 						<div className={classnames('start-square', { open: !this.state.uploadTrack })} >
 							<img src="test_data/profile.jpg" className="start-image" />

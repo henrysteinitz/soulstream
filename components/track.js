@@ -16,6 +16,53 @@ const forms = {
 }
 
 
+class VideoContent extends Component {
+	render() {
+		const { track, children } = this.props
+		return (
+			<div className="track-video-container">
+				<video src={track.audioUrl} className="track-video" ref={(input) => {this.videoElementRef = input}} />
+				{children}
+			</div>
+		)
+	}
+}
+
+const TrackButtons = ({ song, isCurrentlyPlaying, play, pause, likeHover, setLikeHover, crowdHover, setCrowdHover, toggleShowCrowd}) => (
+	<div className="bar-buttons">
+		<div className="controls-left">
+		{
+			isCurrentlyPlaying ?
+			<img 
+				className="control track-button play-button black" 
+				src="icons/icons8-pause_filled.png"
+				onClick={pause} />
+				:
+			<img 
+				className="control track-button play-button black" 
+				src="icons/icons8-play_filled.png"
+				onClick={play} />	
+		}
+		</div>
+		<div className="controls-right">
+			<div className="little-controls">
+				<img 
+					className="little-control like"
+					src={likeHover ? 'icons/icons8-like_filled 2.png' : 'icons/icons8-like_filled.png'}
+					onMouseOver={() => setLikeHover(true)}
+					onMouseLeave={() => setLikeHover(false)}
+					onClick={() => {}} />
+				<img 
+					className="little-control bubble"
+					src={crowdHover ? 'icons/icons8-speech_bubble_filled 2.png' : 'icons/icons8-speech_bubble_filled.png'}
+					onMouseOver={() => setCrowdHover(true)}
+					onMouseLeave={() => setCrowdHover(false)}
+					onClick={toggleShowCrowd} />
+			</div>
+		</div>
+	</div>
+)
+
 export default class Track extends Component {
 
 	state = {
@@ -84,75 +131,73 @@ export default class Track extends Component {
 					onMouseDown={this.beginMouseHold}
 					onMouseUp={this.endMouseHold} 
 				>
-					{noArt || <Content size="medium" art={song.artUrl} />}
-					<div className="track-player">
-						{   noReason && <div className="track-reason" / >}
-						{	noReason ||
-							<div className="track-reason">
-								<ArtistLink artist={bird} /> shared 
-						</div>}
-						<div className="track-title">
-							{song && song.title}
-						</div>
-						<div className="track-meta-lower">
-							<div className="title-artist inline">
-								{artist && artist.artist.name}
-							</div>
-							{
-								song && song.albums && song.albums[0] &&
-								<div className="inline">
-									<div className="circle" />
-									<div className="title-album inline">
-										{song.albums[0].album.title}
+					{
+						song.type === 'VIDEO' ? 
+						<VideoContent track={song} ref={(input) => {this.videoContentRef = input}}>
+							<TrackButtons 
+								song={song}
+									isCurrentlyPlaying={isCurrentlyPlaying}
+									play={(x) => play(song, 'STREAM', this.videoContentRef.videoElementRef)}
+									pause={() => pause(this.videoContentRef.videoElementRef)}
+									likeHover={likeHover}
+									crowdHover={crowdHover}
+									setLikeHover={(x) => this.setState({ likeHover: x })}
+									setCrowdHover={(x) => this.setState({ crowdHover: x })}
+									toggleShowCrowd={() => this.setState({ showCrowd: !this.state.showCrowd })}
+							/>
+							<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  />
+						</VideoContent> :
+						[
+							noArt || <Content size="medium" art={song.artUrl} />,
+							<div className="track-player">
+							{   noReason && <div className="track-reason" / >}
+							{	noReason ||
+								<div className="track-reason">
+									<ArtistLink artist={bird} /> shared 
+								</div>}
+								<div className="track-title">
+									{song && song.title}
+								</div>
+								<div className="track-meta-lower">
+									<div className="title-artist inline">
+										{artist && artist.artist.name}
 									</div>
-								</div>
-							}		
-						</div>
-						{/*<Controls 
-							play={play} 
-							pause={pause} 
-							isPlaying={isPlaying} 
-							nowPlaying={nowPlaying} 
-							pocketMode={pocketMode} 
-							signedIn={signedIn} 
-							currentTrackTime={currentTime}
-				    		totalTrackTime={totalTime}
-				    		skipTo={skipTo}
-						/>*/}
-						<div className="bar-buttons">
-							<div className="controls-left">
-							{
-								isCurrentlyPlaying ?
-								<img 
-									className="control track-button play-button" 
-									src="icons/icons8-pause_filled.png"
-									onClick={pause} />
-									:
-								<img 
-									className="control track-button play-button" 
-									src="icons/icons8-play_filled.png"
-									onClick={() => play(song)} />	
-							}
+									{
+										song && song.albums && song.albums[0] &&
+										<div className="inline">
+											<div className="circle" />
+											<div className="title-album inline">
+												{song.albums[0].album.title}
+											</div>
+										</div>
+									}		
+								</div>,
+							{/*<Controls 
+								play={play} 
+								pause={pause} 
+								isPlaying={isPlaying} 
+								nowPlaying={nowPlaying} 
+								pocketMode={pocketMode} 
+								signedIn={signedIn} 
+								currentTrackTime={currentTime}
+					    		totalTrackTime={totalTime}
+					    		skipTo={skipTo}
+							/>*/}
+								<TrackButtons 
+									song={song}
+									isCurrentlyPlaying={isCurrentlyPlaying}
+									play={(x) => play(song)}
+									pause={pause}
+									likeHover={likeHover}
+									crowdHover={crowdHover}
+									setLikeHover={(x) => this.setState({ likeHover: x })}
+									setCrowdHover={(x) => this.setState({ crowdHover: x })}
+									toggleShowCrowd={() => this.setState({ showCrowd: !this.state.showCrowd })}
+								/>
+								<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  />,
 							</div>
-							<div className="controls-right">
-								<div className="little-controls">
-									<img 
-										className="little-control like"
-										src={likeHover ? 'icons/icons8-like_filled 2.png' : 'icons/icons8-like_filled.png'}
-										onMouseOver={() => this.setState({ likeHover: true })}
-										onMouseLeave={() => this.setState({ likeHover: false })}
-										onClick={() => {}} />
-									<img 
-										className="little-control bubble"
-										src={crowdHover ? 'icons/icons8-speech_bubble_filled 2.png' : 'icons/icons8-speech_bubble_filled.png'}
-										onMouseOver={() => this.setState({ crowdHover: true })}
-										onMouseLeave={() => this.setState({ crowdHover: false })}
-										onClick={() => this.setState({ showCrowd: !this.state.showCrowd })} />
-								</div>
-							</div>
-						</div>
-						<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  /> 
-					</div>
+						]
+					}
 				</div>
 				<Crowd
 					show={showCrowd} 

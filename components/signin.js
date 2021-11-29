@@ -3,6 +3,7 @@ import { Component } from 'react'
 import classnames from 'classnames'
 import Prisma from '@prisma/client'
 import { createHash, randomBytes } from 'crypto'
+import Logo from './logo.js'
 
 export default class SignIn extends Component {
 	
@@ -112,6 +113,7 @@ export default class SignIn extends Component {
 
 		return (
 			<div className="sign-in">
+				<Logo white={false} toggleScreen={() => {}} xl full signin blueBars />
 				{
 					basicInfo && 
 					<input className={classnames('signin-input', 'signin-email')} 

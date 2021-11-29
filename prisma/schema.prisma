@@ -50,6 +50,7 @@ model Track {
   verses        Verse[]
   likes         TrackLike[]
   plays         TrackPlay[]
+  type          TrackType @default(AUDIO)
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
@@ -150,4 +151,9 @@ model TrackPlay {
 //  accountId     Int
 //  position      Int
 //}
+
+enum TrackType {
+  AUDIO
+  VIDEO
+}
 

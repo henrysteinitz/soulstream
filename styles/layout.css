@@ -58,6 +58,11 @@ a {
 	background: white;
 	border-right: 1px solid rgb(230,230,232);
 	padding-right: 0px;
+	transition: width .24s;
+}
+
+.left.side.wide {
+	width: 700px;
 }
 
 .left.bar {
@@ -83,7 +88,12 @@ a {
 	flex-direction: row;
 	align-items: center;
 	display: inline-flex;
-	height: 100%;	
+	height: 100%;
+	transition: width .24s;	
+}
+
+.left.fake.wide {
+	width: 700px;
 }
 
 .right-title {
@@ -98,6 +108,7 @@ a {
 .navigation {
 	flex-grow: 0;
 	width: 100%;
+	position: relative;
 }
 
 .nav-link {

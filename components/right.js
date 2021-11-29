@@ -14,7 +14,7 @@ const Right = (props) => {
 	return (
 		<div className="page">
 			<Route path="/">
-				{/*<Start />*/}
+				<Start />
 				{stream && stream.map((track) => (
 				<Track 
 					song={track} 

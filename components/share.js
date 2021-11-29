@@ -14,15 +14,36 @@ export default class Share extends Component {
 
 	handleTrack = (file) => {
 		console.log(file)
+		console.log(file instanceof File)
 		this.setState({ trackFile: file });
 	}
 
 	save = () => {
-		supabase.storage.from('images').upload(
-			'tests/image1.png',
-			this.props.artfile,
-		
-		)
+		const { title, url, trackFile } = this.state
+		const contentFilename = randomBytes(16).toString('hex');
+		supabase.storage.from('tracks').upload(`audio/${randomFilename}`, trackFile, {
+   			cacheControl: '3600',
+    		upsert: false
+  		})
+
+  		const artFilename = randomBytes(16).toString('hex');
+		supabase.storage.from('tracks').upload(`image/${randomFilename}`, artFile, {
+			cacheControl: '3600',
+    		upsert: false
+  		})
+		fetch(`/api/crowd/post_track`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({ 
+				title,
+				contentUrl: contentFilename,
+				artUrl: artFilename
+			})
+		}).then((res) => {
+			res.json().then(body => {})
+		})
 	}
 
 
@@ -43,7 +64,7 @@ export default class Share extends Component {
 								onChange={this.handleTrack}
 								stopPropagation
 								clickable>
-								<input className="share-input" value={this.state.title} placeholder="title" />
+								<input className="share-input" value={this.state.title} placeholder="title" onChange={(e) => this.setState({ title: e.target.value})} />
 								<input className="share-input" value={this.state.url} placeholder="url" />
 							</Helipad>
 						</div>

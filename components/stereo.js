@@ -39,7 +39,8 @@ export default class Stereo extends Component {
 		tracksById: mapTracksById(this.props.stream),
 		queue: [], // list of track ids\
 		defaultQueue: [],
-		dragTrackId: null
+		dragTrackId: null,
+		nightMode: true
 		// TODO: move to a global store.
 	}
 
@@ -47,34 +48,47 @@ export default class Stereo extends Component {
 
 	componentDidMount() {
 		window.addEventListener('keydown', (e) => this.handleSpacebar(e));
-		this.audioRef.onended = this.playNextInQueue
+		
+
 	}
 
-	play = (song, source="STREAM") => {
+	play = (song, source="STREAM", ref=null) => {
+		const trackRef = ref || this.state.trackRef
+		let screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
 		if (this.state.song && song.id === this.state.song.id) {
 			this.setState({ 
 				isPlaying: true, 
-				currentTrackTime: this.audioRef.currentTime, 
-				totalTrackTime: this.audioRef.duration 
+				currentTrackTime: screenRef ? screenRef.currentTime : trackRef.currentTrackTime, 
+				totalTrackTime: screenRef ? screenRef.duration : trackRef.duration
 			}, () => {
-				this.audioRef.play()
+				screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
+				screenRef && screenRef.play()
+				trackRef && trackRef.play()
 				this.animateTime()
-				setTimeout(() => this.turnScreenOn(), 70)
 			})
 		} else {
 			clearInterval(this.timeAnimationInterval)
+			if (trackRef) {
+				trackRef.pause()
+				trackRef.currentTime = 0
+			}
 			if (source === 'STREAM') {
 				// set default queue.
 			}
 			this.setState({ 
 				isPlaying: true, 
 				currentTrackTime: 0, 
-				totalTrackTime: this.audioRef.duration,
-				song
+				totalTrackTime: screenRef ? screenRef.duration : trackRef.duration,
+				song,
+				trackRef: ref
 			}, () => {
-				this.audioRef.play()
+				screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
+				if (screenRef) {
+					screenRef.play()
+					screenRef.onended = this.playNextInQueue
+				}
+				ref && ref.play()
 				this.animateTime()
-				setTimeout(() => this.turnScreenOn(), 70)
 			})
 		}
 
@@ -95,10 +109,12 @@ export default class Stereo extends Component {
 	}
 
 	animateTime = () => {
+		const { song } = this.state
+		const ref = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
 		this.timeAnimationInterval = setInterval(() => {
 			this.setState({
-				currentTrackTime: this.audioRef.currentTime,
-				totalTrackTime: this.audioRef.duration
+				currentTrackTime: ref.currentTime,
+				totalTrackTime: ref.duration
 			})
 		}, 40)
 	}
@@ -107,8 +123,13 @@ export default class Stereo extends Component {
 		clearInterval(this.timeAnimationInterval)
 	}
 
-	pause = () => {
-		this.setState({ isPlaying: false }, () => this.audioRef.pause())
+	pause = (mediaRef=null) => {
+		const { song, trackRef } = this.state
+		let screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
+		this.setState({ isPlaying: false }, () => {
+			screenRef.pause()
+			trackRef && trackRef.pause()
+		})
 	}
 
 	toggle = () => {
@@ -125,7 +146,12 @@ export default class Stereo extends Component {
 	}
 
 	skipTo = (time, cb = () => {}) => {
-		this.audioRef.currentTime = time
+		const { song, trackRef } = this.state
+		let screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
+		if (trackRef) { 
+			trackRef.currentTime = time
+		}
+		screenRef.currentTime = time
 		this.setState({ currentTrackTime: time }, cb)
 	}
 
@@ -179,10 +205,11 @@ export default class Stereo extends Component {
 	}
 
 	render() {
-		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn, tracks, dragTrackId } = this.state
+		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn, tracks, dragTrackId, nightMode } = this.state
 		const { signedIn, startSession, stream, account, artist } = this.props
 
 		const realStream = tracks || stream
+		const playingVideo = song && song.type === 'VIDEO'
 		console.log(dragTrackId)
 
 		return (
@@ -205,7 +232,7 @@ export default class Stereo extends Component {
 					<Mural />
 				</div>*/}
 				<div className={classnames('page-content', { center: !signedIn })}>	
-					{ screenOn && <div className="left fake" /> }		
+					{ screenOn && <div className={classnames('left', 'fake', { wide: playingVideo })} /> }		
 		    		<Left ref="left" 
 		    			toggle={this.toggle} 
 		    			play={this.play} 
@@ -228,6 +255,8 @@ export default class Stereo extends Component {
 		    			queueTracks={this.state.queue.map((id) => this.state.tracksById[id])}
 		    			stopTrackDragging={this.stopTrackDragging}
 		    			playQueueTrackByIndex={this.playQueueTrackByIndex}
+		    			nightMode={nightMode}
+		    			playingVideo={playingVideo}
 		    			ref={(input) => {this.left = input}}
 
 		    		/>

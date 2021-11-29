@@ -19,6 +19,7 @@ export async function getStaticProps(context){
 	    	audioUrl: true,
 	    	artUrl: true,
 	    	url: true,
+	    	type: true,
 	    	artists: {
 	    		include: {
 	    			artist: {
@@ -48,7 +49,11 @@ export async function getStaticProps(context){
     				{endTime: 'asc'}
     			]
 	    	}
-	}})
+		},
+		orderBy: [
+			{createdAt: 'desc'}
+		]
+	})
 
 	return { props: { stream } }
 }
