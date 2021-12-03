@@ -194,7 +194,7 @@ export default class Track extends Component {
 									setCrowdHover={(x) => this.setState({ crowdHover: x })}
 									toggleShowCrowd={() => this.setState({ showCrowd: !this.state.showCrowd })}
 								/>
-								<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo}  />,
+								<Time currentTime={(song && (playingId === song.id)) ? currentTime : 0} totalTime={totalTime} skipTo={skipTo} track />,
 							</div>
 						]
 					}

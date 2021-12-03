@@ -68,7 +68,7 @@ export default class Left extends Component {
 		console.log(nowPlayingLyrics)
 
 		if (!signedIn) {
-			return <SignIn />
+			return <SignIn startSession={startSession} />
 		}
 		return  (
 		<AtlasConsumer>

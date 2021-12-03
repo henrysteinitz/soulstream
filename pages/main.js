@@ -6,7 +6,11 @@ import Atlas, { AtlasProvider } from '../lib/atlas/atlas.js'
 
 const initialState = {
 	sessionToken: null,
-	accountId: null
+	accountId: null,
+	account: {
+		sessionToken: null,
+		accountId: null
+	},
 }
 const fakeSignedIn = {
 	sessionToken: 1,
@@ -14,34 +18,33 @@ const fakeSignedIn = {
 }
 export default class Main extends Component {
 
-	state = fakeSignedIn
+	state = initialState
 
 	constructor(props) {
 		super(props)
 		Atlas.reRender = () => this.forceUpdate()
 	}
 
-	startSession = (id, token) => {
+	startSession = (account) => {
 		// TODO Set / read session from cookie
-		this.setState({ id, sessionToken: token })
+		this.setState({ accountId: account.id, sessionToken: account.sessionToken, account })
 	}
 
 	render() {
-		const { sessionToken, accountId } =this.state
-    	const { stream, artist } = this.props
+		const { account, sessionToken } =this.state
     	const signedIn = !!sessionToken
+    	console.log(signedIn)
 		return (
 			<div className={classnames('page-container', { center: signedIn })}>
     			<AtlasProvider value={Atlas}>
     				<Stereo 
-    					signedIn={!!this.state.seesionToken}
-    					accountId={this.state.accountId}
-    					sessionToken={this.state.seesionToken}
+    					{...this.props}
+    					signedIn={!!this.state.sessionToken}
+    					sessionToken={this.state.sessionToken}
     					signedIn={signedIn}
     					startSession={this.startSession} 
-    					stream={stream}
-    					account={{accountId, sessionToken}}
-    					artist={artist}
+    					account={account}
+    					
     				/>
         		</AtlasProvider>
         	</div>

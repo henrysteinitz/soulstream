@@ -1,0 +1,99 @@
+.channel-container {
+	margin-bottom: 30px;	
+}
+
+.channel-upper {
+	width: 1100px;
+	vertical-align: top;
+	color: white;
+	display: flex;
+	text-align: left;
+	margin-bottom: 45px;
+}
+
+.channel-screen {
+	display: inline-block;
+	flex-grow: 0;
+	margin-right: 10px;
+	margin-bottom: 0;
+	width: 390px;
+}
+
+.channel-screen>img {
+	width: 100%;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.channel-info {
+	display: inline-block;
+	flex-grow: 1;
+	margin-right: 10px;
+	position: relative;
+}
+
+.channel-name {
+	position: relative;
+	display: inline-block;
+	font-size: 64px;
+	color: black;
+	font-family: "Montserrat";
+	font-weight: 400;
+	margin-bottom: 10px;
+}
+
+.channel-location {
+	display: inline-block;
+	font-size: 18px;
+	background: black;
+	font-family: "Montserrat";
+	font-weight: 500;
+	margin-bottom: 10px;
+	padding: 8px;
+}
+
+.channel-followers {
+
+}
+
+.channel-following {
+
+}
+
+.channel-play-buttons {
+	position: absolute;
+}
+
+.channel-current {
+	display: inline-block;
+	font-size: 18px;	
+	background: black;
+}
+
+.channel-line {
+	width: 100%;
+	height: 0px;
+}
+
+.channel-buttons{
+	position: absolute;
+	bottom: 3px;
+}
+
+.channel-tune-in-button, .channel-follow-button {
+	background: black;
+	color: white;
+	display: inline-block;
+	margin-right: 8px;
+	padding: 8px;
+	font-family: "Montserrat";
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.channel-tune-in-button:hover, .channel-follow-button:hover {
+	background: blue;
+	cursor: pointer;
+}
+
+

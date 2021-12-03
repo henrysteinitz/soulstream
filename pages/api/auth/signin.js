@@ -14,11 +14,9 @@ export default async (req, res) => {
 
   // Salt and hash the server's password hash. Double hash is used
   // so that we never store raw passwords. The second hash is salted.
-  console.log(account.passwordHash)
   const hash = createHash('sha256');
   hash.update(salt + account.passwordHash);
   const serverFinalHash = hash.digest('hex')
-  console.log(serverFinalHash)
   if (serverFinalHash !== finalHash) {
   	res.status(500)
   }
@@ -29,9 +27,11 @@ export default async (req, res) => {
   	data: { sessionToken },
   	select: {
   		id: true,
-  		sessionToken: true
-  	}
-  });
+  		sessionToken: true,
+      following: true,
+     }
+  })
+  console.log(accountUpdate)
   res.json(accountUpdate);
 }
 

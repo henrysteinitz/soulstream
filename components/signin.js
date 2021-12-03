@@ -59,7 +59,7 @@ export default class SignIn extends Component {
 				salt
 			})
 		}).then((res) => {
-			res.json().then(body => startSession(body.id, body.sessionToken))
+			res.json().then(body => startSession(body))
 		})
 
 	}
@@ -87,7 +87,7 @@ export default class SignIn extends Component {
 				passwordHash
 			})
 		}).then((res) => {
-			res.json().then(body => startSession(body.id, body.sessionToken))
+			res.json().then(body => startSession(body))
 		})
 	}
 
@@ -113,7 +113,7 @@ export default class SignIn extends Component {
 
 		return (
 			<div className="sign-in">
-				<Logo white={false} toggleScreen={() => {}} xl full signin blueBars />
+				<Logo white={false} toggleScreen={() => {}} xl full signin blues />
 				{
 					basicInfo && 
 					<input className={classnames('signin-input', 'signin-email')} 

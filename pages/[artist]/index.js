@@ -8,16 +8,24 @@ import Main from '../main.js'
 
 function Home(props){
 	const router = useRouter()
-	Atlas.setPath(router.pathname)
-	Atlas.setState({ artist: router.asPath.slice(1) })
+	Atlas.setPath('/' + props.artist.url)
+	// console.log(router.pathname)
 
 	return <Main {...props} pathname={router.pathname}/>
 }
 
 export async function getStaticPaths(context) {
+	// TODO: Will this scale? Suspect...
+	let prisma = new PrismaClient();
+	const artists = await prisma.artist.findMany({
+		select: {
+			url: true
+		}
+	})
+
 	return {
-		paths: [],
-		fallback: true
+		paths: artists.map(artist => ('/' + artist.url)),
+		fallback: false
 	}
 }
 
@@ -30,6 +38,7 @@ export async function getStaticProps(context){
 			id: true,
 			name: true,
 			pictureUrl: true,
+			url: true,
 			tracks: {
 	    		include: {
 	    			track: {
@@ -42,6 +51,15 @@ export async function getStaticProps(context){
 	    				}
 	    			}
 	    		}
+	    	},
+	    	accounts: {
+	    		include: {
+		    		account: {
+	    				select: {
+	    					id: true
+	    				}
+	    			}
+	    		}
 	    	}
 		},
 		where: {
@@ -49,7 +67,40 @@ export async function getStaticProps(context){
 		}
 	})
 
-	return { props: { artist } }
+	const history = await prisma.trackPlay.findMany({
+		include: {
+			track: {
+				select: {
+					id: true,
+					title: true,
+					audioUrl: true,
+					artUrl: true,
+					url: true,
+					artists: {
+			    		include: {
+			    			artist: {
+			    				select: {
+			    					name: true
+			    				}
+			    			}
+			    		}
+	    			}
+				}
+			}
+		},
+		where: {
+			accountId: { in: artist.accounts.map(x => x.account.id)}
+		}
+	})
+	console.log(history)
+
+	const artistNoTracks = {artist: {id: artist.id, name: artist.name, pictureUrl: artist.pictureUrl}}
+	const tracks = artist.tracks.map(x => x.track)
+	tracks.forEach(track => {
+		track.artists = [artistNoTracks]
+	})
+
+	return { props: { artist, history, stream: tracks }}
 }
 
 export default Home

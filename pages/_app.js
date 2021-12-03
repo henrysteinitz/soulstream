@@ -1,4 +1,5 @@
 import '../lib/helipad/helipad.css'
+import '../styles/channel.css'
 import '../styles/globals.css'
 import '../styles/layout.css'
 import '../styles/signin.css'

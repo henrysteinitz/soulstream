@@ -55,7 +55,7 @@ export async function getStaticProps(context){
 		]
 	})
 
-	return { props: { stream } }
+	return { props: { stream, history: [] } }
 }
 
 export default Home

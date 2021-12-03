@@ -14,6 +14,7 @@ import { VerseMap } from '../state/lyrics.js'
 
 
 const mapTracksById = (tracks) => {
+	console.log(tracks)
 	let result = {}
 	tracks.forEach((track) => {
 		result[track.id] = {...track}
@@ -36,7 +37,8 @@ export default class Stereo extends Component {
 		screenOn: false,
 		typing: false,
 		tracks: this.props.stream,
-		tracksById: mapTracksById(this.props.stream),
+		following: new Set(this.props.account.following ? this.props.account.following.map(x => x.artistId) : []),
+		tracksById: mapTracksById(this.props.stream.concat(this.props.history.map(x => x.track))),
 		queue: [], // list of track ids\
 		defaultQueue: [],
 		dragTrackId: null,
@@ -48,8 +50,12 @@ export default class Stereo extends Component {
 
 	componentDidMount() {
 		window.addEventListener('keydown', (e) => this.handleSpacebar(e));
-		
+	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({ 
+			following: new Set(nextProps.account.following ? nextProps.account.following.map(x => x.artistId) : [])
+		})
 	}
 
 	play = (song, source="STREAM", ref=null) => {
@@ -59,7 +65,6 @@ export default class Stereo extends Component {
 			this.setState({ 
 				isPlaying: true, 
 				currentTrackTime: screenRef ? screenRef.currentTime : trackRef.currentTrackTime, 
-				totalTrackTime: screenRef ? screenRef.duration : trackRef.duration
 			}, () => {
 				screenRef = song.type === 'VIDEO' ? this.left.screen.videoRef : this.audioRef
 				screenRef && screenRef.play()
@@ -67,6 +72,7 @@ export default class Stereo extends Component {
 				this.animateTime()
 			})
 		} else {
+			this.savePlayForHistory(song)
 			clearInterval(this.timeAnimationInterval)
 			if (trackRef) {
 				trackRef.pause()
@@ -78,7 +84,6 @@ export default class Stereo extends Component {
 			this.setState({ 
 				isPlaying: true, 
 				currentTrackTime: 0, 
-				totalTrackTime: screenRef ? screenRef.duration : trackRef.duration,
 				song,
 				trackRef: ref
 			}, () => {
@@ -89,9 +94,27 @@ export default class Stereo extends Component {
 				}
 				ref && ref.play()
 				this.animateTime()
+				this.setState({totalTrackTime: screenRef ? screenRef.duration : trackRef.duration})
 			})
 		}
 
+	}
+
+	savePlayForHistory = (song) => {
+		fetch(`/api/history/record_play`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({ 
+				trackId: song.id,
+				accountId: this.props.account.id
+			})
+		}).then((res) => {
+			res.json().then(body => {
+				return
+			})
+		})
 	}
 
 	playNextInQueue = () => {
@@ -204,13 +227,26 @@ export default class Stereo extends Component {
 		}
 	}
 
+	follow = (follow) => {
+		const nextFollowing = new Set([...this.state.following])
+		nextFollowing.add(follow.artistId)
+		this.setState({ following: nextFollowing })
+	}
+
+	unfollow = (unfollow) => {
+		const nextFollowing = new Set([...this.state.following])
+		nextFollowing.delete(unfollow.artistId)
+		this.setState({ following: nextFollowing })
+	}
+
 	render() {
-		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn, tracks, dragTrackId, nightMode } = this.state
-		const { signedIn, startSession, stream, account, artist } = this.props
+		const { song, isPlaying, currentTrackTime, totalTrackTime, screenOn, tracks, dragTrackId, nightMode, following } = this.state
+		const { signedIn, startSession, stream, account, artist, history, acc } = this.props
 
 		const realStream = tracks || stream
 		const playingVideo = song && song.type === 'VIDEO'
-		console.log(dragTrackId)
+		console.log(history)
+		console.log(account)
 
 		return (
 			<Helipad className="page-outer-container" onKeyDown={this.handleSpacebar} modal={<Upload />}>
@@ -275,7 +311,11 @@ export default class Stereo extends Component {
 		    				account={account}
 		    				artist={artist}
 		    				startTrackDragging={this.startTrackDragging}
-		    				stopTrackDragging={this.stopTrackDragging} />
+		    				stopTrackDragging={this.stopTrackDragging}
+		    				history={history}
+		    				following={following}
+		    				follow={this.follow}
+		    				unfollow={this.unfollow} />
 		    		}
 					<audio id="audio" src={song && song.audioUrl} ref={(input) => {this.audioRef = input}} />
 				</div>
